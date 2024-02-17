@@ -9,18 +9,23 @@
     MessageToUI,
     MessageToUIEvent,
   } from "@/shared/types";
+  import { DevTools } from "@/widgets/dev-tools";
   import { Donate } from "@/widgets/donate";
   import { Navigation } from "@/widgets/navigation";
   import { PageWrapper } from "@/widgets/page-wrapper";
-  import { Preloader } from "@/widgets/preloader";
+  import Preloader from "@/widgets/preloader/ui/preloader.svelte";
   import { onDestroy, onMount } from "svelte";
 
-  let loading = true;
+  const isDev = process.env.NODE_ENV === "development";
+
+  let isLoading = true;
 
   const handleGetSettingsResponse = (msg: MessageToUI) => {
     if (msg.action !== "get-settings-response") return;
     $settingsStore = msg.settings;
-    loading = false;
+    setTimeout(() => {
+      isLoading = false;
+    }, 100);
   };
 
   onmessage = (event: MessageToUIEvent) => {
@@ -40,22 +45,28 @@
   });
 </script>
 
-{#if !loading}
-  <main class="flex flex-col h-full">
-    <Navigation />
+<main class="flex flex-col h-full">
+  <Navigation />
 
-    <PageWrapper class="grow">
-      {#if $settingsStore.nav === "STYLES"}
-        <StylesPage />
-      {:else if $settingsStore.nav === "DESIGN"}
-        <DesignPage />
-      {:else if $settingsStore.nav === "SETTINGS"}
-        <SettingsPage />
-      {/if}
-    </PageWrapper>
+  <PageWrapper class="grow">
+    {#if $settingsStore.nav === "STYLES"}
+      <StylesPage />
+    {:else if $settingsStore.nav === "DESIGN"}
+      <DesignPage />
+    {:else if $settingsStore.nav === "SETTINGS"}
+      <SettingsPage />
+    {/if}
+  </PageWrapper>
 
-    <Donate />
-  </main>
-{:else}
+  <Donate />
+
+  {#if isDev}
+    <div class="flex justify-end p-4">
+      <DevTools />
+    </div>
+  {/if}
+</main>
+
+{#if isLoading}
   <Preloader />
 {/if}
