@@ -12,11 +12,15 @@
   import { Donate } from "@/widgets/donate";
   import { Navigation } from "@/widgets/navigation";
   import { PageWrapper } from "@/widgets/page-wrapper";
+  import { Preloader } from "@/widgets/preloader";
   import { onDestroy, onMount } from "svelte";
+
+  let loading = true;
 
   const handleGetSettingsResponse = (msg: MessageToUI) => {
     if (msg.action !== "get-settings-response") return;
     $settingsStore = msg.settings;
+    loading = false;
   };
 
   onmessage = (event: MessageToUIEvent) => {
@@ -36,18 +40,22 @@
   });
 </script>
 
-<main class="flex flex-col h-full">
-  <Navigation />
+{#if !loading}
+  <main class="flex flex-col h-full">
+    <Navigation />
 
-  <PageWrapper class="grow">
-    {#if $settingsStore.nav === "STYLES"}
-      <StylesPage />
-    {:else if $settingsStore.nav === "DESIGN"}
-      <DesignPage />
-    {:else if $settingsStore.nav === "SETTINGS"}
-      <SettingsPage />
-    {/if}
-  </PageWrapper>
+    <PageWrapper class="grow">
+      {#if $settingsStore.nav === "STYLES"}
+        <StylesPage />
+      {:else if $settingsStore.nav === "DESIGN"}
+        <DesignPage />
+      {:else if $settingsStore.nav === "SETTINGS"}
+        <SettingsPage />
+      {/if}
+    </PageWrapper>
 
-  <Donate />
-</main>
+    <Donate />
+  </main>
+{:else}
+  <Preloader />
+{/if}
