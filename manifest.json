@@ -1,0 +1,17 @@
+{
+  "name": "Design Prisma",
+  "id": "1336241927997783599",
+  "api": "1.0.0",
+  "main": "./dist/code.js",
+  "ui": "./dist/index.html",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": [
+    "figma"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "none"
+    ]
+  }
+}

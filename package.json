@@ -1,0 +1,41 @@
+{
+  "name": "design-prisma",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently npm:watch:*",
+    "build": "concurrently npm:build:*",
+    "build:ui": "vite build --watch=false --config vite.config.ui.ts",
+    "build:plugin": "vite build --watch=false --config vite.config.plugin.ts",
+    "watch:ui": "vite build --config vite.config.ui.ts",
+    "watch:plugin": "vite build --config vite.config.plugin.ts"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.85.0",
+    "@rgossiaux/svelte-headlessui": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^3.0.1",
+    "@tsconfig/svelte": "^5.0.2",
+    "@types/node": "^20.11.16",
+    "autoprefixer": "^10.4.17",
+    "concurrently": "^8.2.2",
+    "postcss": "^8.4.33",
+    "svelte": "^4.2.8",
+    "svelte-check": "^3.6.2",
+    "svelte-highlight": "^7.5.0",
+    "tailwindcss": "^3.4.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8",
+    "vite-plugin-singlefile": "^0.13.5"
+  },
+  "dependencies": {
+    "prettier": "^3.2.4",
+    "tailwind-merge": "^2.2.1"
+  },
+  "overrides": {
+    "@rgossiaux/svelte-headlessui": {
+      "svelte": "$svelte"
+    }
+  }
+}
