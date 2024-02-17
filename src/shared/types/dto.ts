@@ -40,6 +40,10 @@ export type SetSettingsQuery = {
 	settings: Settings;
 };
 
+export type ResetPluginDataMessage = {
+	action: "reset-plugin-data-message";
+};
+
 export type MessageToUI =
 	| SelectedNodeChangeMessage
 	| GetDesignLocalTextStylesResponse
@@ -50,7 +54,8 @@ export type MessageToPlugin =
 	| GetDesignLocalTextStylesQuery
 	| GetDesignLocalPaintStylesQuery
 	| GetSettingsQuery
-	| SetSettingsQuery;
+	| SetSettingsQuery
+	| ResetPluginDataMessage;
 
 export type MessageToUIEvent = {
 	data: {

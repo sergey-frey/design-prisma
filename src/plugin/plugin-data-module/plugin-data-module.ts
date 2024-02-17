@@ -1,9 +1,9 @@
 import { msgToPluginObserver, postMessageToUI } from "@/shared/lib";
 import {
-	Unit,
 	type GetSettingsResponse,
 	type MessageToPlugin,
 	type Settings,
+	Unit,
 } from "@/shared/types";
 
 type PluginData = {
@@ -27,6 +27,7 @@ export class PluginDataModule {
 
 		msgToPluginObserver.subscribe(this.handleGetSettingsQuery.bind(this));
 		msgToPluginObserver.subscribe(this.handleSetSettingsQuery.bind(this));
+		msgToPluginObserver.subscribe(this.handleResetPluginDataMessage.bind(this));
 	}
 
 	private initSettings() {
@@ -39,6 +40,13 @@ export class PluginDataModule {
 
 	private setData(key: keyof PluginData, value: PluginDataValue) {
 		figma.currentPage.setPluginData(key, JSON.stringify(value));
+	}
+
+	private resetData() {
+		const keys: (keyof PluginData)[] = ["settings"];
+		for (const key of keys) {
+			figma.currentPage.setPluginData(key, "");
+		}
 	}
 
 	private getData(key: keyof PluginData): PluginDataValue | undefined {
@@ -73,5 +81,10 @@ export class PluginDataModule {
 			action: "get-settings-response",
 			settings: msg.settings,
 		});
+	}
+
+	private handleResetPluginDataMessage(msg: MessageToPlugin) {
+		if (msg.action !== "reset-plugin-data-message") return;
+		this.resetData();
 	}
 }

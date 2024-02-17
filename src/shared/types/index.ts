@@ -12,6 +12,7 @@ export type {
 	MessageToPlugin,
 	MessageToUI,
 	MessageToUIEvent,
+	ResetPluginDataMessage,
 	SelectedNodeChangeMessage,
 	SetSettingsQuery,
 } from "./dto";
