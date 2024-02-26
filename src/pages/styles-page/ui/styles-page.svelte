@@ -3,11 +3,9 @@
   import { settingsStore } from "@/entities/settings";
   import { CodeField } from "@/features/code-field";
   import { content } from "@/shared/content";
-  import { formatStyles, msgToUIObserver } from "@/shared/lib";
+  import { msgToUIObserver } from "@/shared/lib";
   import type { MessageToUI } from "@/shared/types";
-  import parserHTML from "prettier/parser-html";
   import { onDestroy, onMount } from "svelte";
-  import { clean, css, xml } from "svelte-highlight/languages";
 
   const handleSelectedNodeChangeMessage = (msg: MessageToUI) => {
     if (msg.action !== "selected-node-change") return;
@@ -42,34 +40,25 @@
   {#if hasNodeBlock}
     <CodeField
       title="{content[$settingsStore.lang].pages.STYLES.nodeBlockTitle}"
-      language="{css}"
-      code="{formatStyles($selectedNodeStore.nodeBlock, $settingsStore.units)}"
+      code="{$selectedNodeStore.nodeBlock}"
     />
   {/if}
 
   {#if hasNodeCSS}
     <CodeField
       title="{content[$settingsStore.lang].pages.STYLES.nodeCSSTitle}"
-      language="{css}"
-      code="{formatStyles($selectedNodeStore.nodeCSS, $settingsStore.units)}"
+      code="{$selectedNodeStore.nodeCSS}"
     />
   {/if}
 
   {#if hasNodeSVG}
-    <CodeField
-      title="SVG"
-      language="{xml}"
-      code="{$selectedNodeStore.nodeSVG ?? ''}"
-      enableFormatting
-      parser="{'html'}"
-      plugin="{parserHTML}"
-    />
+    <!-- FIXME: can't show formatted string code -->
+    <CodeField title="SVG" code="{$selectedNodeStore.nodeSVG ?? ''}" isSVG />
   {/if}
 
   {#if hasNodeText}
     <CodeField
       title="{content[$settingsStore.lang].pages.STYLES.nodeTextTitle}"
-      language="{clean}"
       code="{$selectedNodeStore.nodeText}"
     />
   {/if}
