@@ -73,3 +73,13 @@ export const convertUnits = (value: string, unit: Unit): string => {
 
 	return value;
 };
+
+export const convertUtilsForNodeCSS = (code: NodeCSS, unit: Unit) => {
+	for (const rule of Object.keys(code) as Array<keyof NodeCSS>) {
+		if (code[rule]) {
+			code[rule] = convertUnits(code[rule], unit);
+		}
+	}
+
+	return code;
+};

@@ -2,7 +2,7 @@
   import theme from "svelte-highlight/styles/atelier-cave-light";
 
   import { settingsStore } from "@/entities/settings";
-  import { formatStyles } from "@/shared/lib";
+  import { convertUtilsForNodeCSS, formatStyles } from "@/shared/lib";
   import type { NodeCSS } from "@/shared/types";
   import { format } from "prettier";
   import htmlParser from "prettier/parser-html";
@@ -50,8 +50,12 @@
         {/await}
       {:else}
         {@const codeString = formatStyles(code, $settingsStore.units)}
+        {@const codeWithCorrectUnits = convertUtilsForNodeCSS(
+          code,
+          $settingsStore.units
+        )}
         <CopyButton code="{codeString}" class="absolute top-2 right-2" />
-        <CodeHighlight {code} />
+        <CodeHighlight code="{codeWithCorrectUnits}" />
       {/if}
     </div>
   </div>
