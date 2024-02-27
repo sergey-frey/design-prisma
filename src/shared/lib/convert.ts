@@ -41,12 +41,19 @@ export const paintStyleNameToCSSVar = (styleName: string): string => {
 
 export const figmaRGBToHEX = (color: Mutable<RGB>, opacity: number): string => {
 	let res = "#";
+	const opacityPart = Math.round(255 * Math.min(Math.max(opacity, 0), 1))
+		.toString(16)
+		.padStart(2, "0");
 
 	for (const key of Object.keys(color) as Array<keyof RGB>) {
 		const part = Math.round(color[key] * 255)
 			.toString(16)
 			.padStart(2, "0");
 		res += part;
+	}
+
+	if (opacity !== 1) {
+		res += opacityPart;
 	}
 
 	return res;
@@ -65,4 +72,14 @@ export const convertUnits = (value: string, unit: Unit): string => {
 	}
 
 	return value;
+};
+
+export const convertUtilsForNodeCSS = (code: NodeCSS, unit: Unit) => {
+	for (const rule of Object.keys(code) as Array<keyof NodeCSS>) {
+		if (code[rule]) {
+			code[rule] = convertUnits(code[rule], unit);
+		}
+	}
+
+	return code;
 };

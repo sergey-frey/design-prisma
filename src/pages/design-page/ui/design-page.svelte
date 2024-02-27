@@ -1,10 +1,9 @@
 <script lang="ts">
   import { designSystemStore } from "@/entities/design-system";
-  import { CodeField } from "@/features/code-field";
   import { settingsStore } from "@/entities/settings";
+  import { CodeField } from "@/features/code-field";
   import { content } from "@/shared/content";
   import {
-    formatStyles,
     msgToUIObserver,
     postMessageToPlugin,
     sortByField,
@@ -15,8 +14,6 @@
     MessageToUI,
   } from "@/shared/types";
   import { onDestroy, onMount } from "svelte";
-  import { css } from "svelte-highlight/languages";
-  import { withRootSelector } from "../model/with-root-selector";
   import TextStylesView from "./text-styles-view.svelte";
 
   const handleGetDesignLocalTextStylesResponse = (msg: MessageToUI) => {
@@ -59,9 +56,7 @@
   {#if hasPaintStyles && $settingsStore.hideDesignSystem === false}
     <CodeField
       title="{content[$settingsStore.lang].pages.DESIGN.colorsTitle}"
-      language="{css}"
-      code="{withRootSelector(formatStyles($designSystemStore.paintStyles))}"
-      enableFormatting
+      code="{$designSystemStore.paintStyles}"
     />
   {/if}
 

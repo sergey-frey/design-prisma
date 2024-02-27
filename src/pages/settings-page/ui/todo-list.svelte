@@ -1,14 +1,18 @@
 <script lang="ts">
-  const todoList = [
-    "Выделить в отдельный блок flex-стили элемента",
-    "Добавить в :root селектор шрифты",
-    "Добавить preview цветов в стилях",
-    "Одна крутая штука :)"
-  ];
+  import { settingsStore } from "@/entities/settings";
+  import { CONTACTS } from "@/shared/constants";
+  import { content } from "@/shared/content";
+
+  $: todoList = content[$settingsStore.lang].pages.SETTINGS.todo.todoList;
+  $: todoTitle = content[$settingsStore.lang].pages.SETTINGS.todo.todoTitle;
+
+  $: feedbackAbout =
+    content[$settingsStore.lang].pages.SETTINGS.feedback.aboutEmail;
+  $: feedbackTg = content[$settingsStore.lang].pages.SETTINGS.feedback.aboutTg;
 </script>
 
 <div class="flex flex-col gap-2">
-  <h3 class="font-medium text-indigo-600">Ближайшие цели по развитию:</h3>
+  <h3 class="font-medium text-indigo-600">{todoTitle}:</h3>
   <ul>
     {#each todoList as todo}
       <li class="flex gap-3">
@@ -19,7 +23,11 @@
   </ul>
 
   <p class="text-sm py-2 px-4 bg-[#efecf4] rounded-[5px]">
-    Вопросы и предложения по развитию плагина принимаются на
-    <span class="text-indigo-600">3str.webdev@gmail.com 🎉</span>
+    {feedbackAbout}
+    <span class="text-indigo-600">{CONTACTS.email} 🎉</span><br />
+    {feedbackTg}:
+    <a href="https://t.me/serg_3str" target="_blank">
+      <span class="text-indigo-600 hover:font-semibold">{CONTACTS.tg}</span>
+    </a>
   </p>
 </div>

@@ -9,9 +9,9 @@
   const keys = Object.keys(NAVIGATION) as Array<NavPage>;
 </script>
 
-<nav>
+<nav {...$$restProps}>
   <ul
-    class="{twMerge(`grid justify-between`)}"
+    class="{twMerge(`grid justify-between bg-white`)}"
     style="{`grid-template-columns: repeat(${keys.length}, minmax(0, 1fr));`}"
   >
     {#each keys as key}

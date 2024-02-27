@@ -1,50 +1,62 @@
 <script lang="ts">
-  import {
-    format,
-    type BuiltInParserName,
-    type LiteralUnion,
-    type Plugin,
-  } from "prettier";
-  import parserPostCSS from "prettier/parser-postcss";
-  import prettierPluginEstree from "prettier/plugins/estree";
-  import Highlight from "svelte-highlight";
-  import type { LanguageType } from "svelte-highlight/languages";
   import theme from "svelte-highlight/styles/atelier-cave-light";
+
+  import { settingsStore } from "@/entities/settings";
+  import { convertUtilsForNodeCSS, formatStyles } from "@/shared/lib";
+  import type { NodeCSS } from "@/shared/types";
+  import { format } from "prettier";
+  import htmlParser from "prettier/parser-html";
+  import { Highlight } from "svelte-highlight";
+  import { plaintext, xml } from "svelte-highlight/languages";
+  import CodeHighlight from "./code-highlight.svelte";
   import CopyButton from "./copy-button.svelte";
 
   import "../styles/index.css";
 
-  export let code: string;
-  export let language: LanguageType<string>;
+  export let code: NodeCSS | string;
   export let title: string = "";
-  export let enableFormatting = false;
-  export let parser: LiteralUnion<BuiltInParserName, string> = "css";
-  export let plugin: string | Plugin<any> = parserPostCSS;
+  export let isSVG: boolean = false;
 
-  const getFormattedCode = async (code: string) => {
-    if (enableFormatting) {
-      return format(code, {
-        parser,
-        plugins: [plugin, prettierPluginEstree],
-      });
-    } else {
-      return code;
+  const getHighlightProps = async () => {
+    if (isSVG && typeof code === "string") {
+      return {
+        language: xml,
+        code: await format(code, {
+          parser: "html",
+          plugins: [htmlParser],
+        }),
+      };
     }
-  };
 
-  $: getFormattedCode(code).then((c) => (code = c ?? ""));
+    return {
+      language: plaintext,
+      code: code as string,
+    };
+  };
 </script>
 
 <svelte:head>
   {@html theme}
 </svelte:head>
 
-<div>
-  <p>{title}</p>
-  <div class="relative">
-    {#if code}
-      <CopyButton {code} class="absolute top-2 right-2" />
-    {/if}
-    <Highlight {code} {language} class="{'text-sm'}" />
+{#if code}
+  <div>
+    <p>{title}</p>
+    <div class="relative">
+      {#if typeof code === "string"}
+        {#await getHighlightProps() then { language, code }}
+          <CopyButton {code} class="absolute top-2 right-2" />
+          <Highlight class="text-sm" {language} {code} />
+        {/await}
+      {:else}
+        {@const codeString = formatStyles(code, $settingsStore.units)}
+        {@const codeWithCorrectUnits = convertUtilsForNodeCSS(
+          code,
+          $settingsStore.units
+        )}
+        <CopyButton code="{codeString}" class="absolute top-2 right-2" />
+        <CodeHighlight code="{codeWithCorrectUnits}" />
+      {/if}
+    </div>
   </div>
-</div>
+{/if}

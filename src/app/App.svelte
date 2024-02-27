@@ -46,7 +46,7 @@
 </script>
 
 <main class="flex flex-col h-full">
-  <Navigation />
+  <Navigation class="sticky top-0" />
 
   <PageWrapper class="grow">
     {#if $settingsStore.nav === "STYLES"}
