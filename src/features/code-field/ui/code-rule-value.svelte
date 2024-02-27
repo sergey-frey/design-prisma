@@ -23,6 +23,5 @@
 </script>
 
 <span class="text-[#26232a] flex items-center gap-1">
-  <!-- <ColorPreview color="{value}" /> -->
   {@html value}
 </span>
