@@ -1,3 +1,9 @@
 .hljs {
   @apply rounded-md;
 }
+
+.color-with-preview {
+  align-items: center;
+  display: flex;
+  gap: 2px;
+}

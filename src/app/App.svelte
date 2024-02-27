@@ -46,7 +46,7 @@
 </script>
 
 <main class="flex flex-col h-full">
-  <Navigation class="sticky top-0" />
+  <Navigation class="sticky top-0 z-50" />
 
   <PageWrapper class="grow">
     {#if $settingsStore.nav === "STYLES"}
@@ -58,7 +58,9 @@
     {/if}
   </PageWrapper>
 
-  <Donate />
+  {#if !isDev}
+    <Donate />
+  {/if}
 
   {#if isDev}
     <div class="flex justify-end p-4">

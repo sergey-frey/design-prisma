@@ -10,7 +10,7 @@
   };
 
   const getColorWithPreview = (color: string) => {
-    return `<div style="display: flex; gap: 2px; align-items: center;">${getColorPreview(color)}${color}<div>`;
+    return `<div class="color-with-preview">${getColorPreview(color)}${color}</div>`;
   };
 
   // TODO: extract to lib
