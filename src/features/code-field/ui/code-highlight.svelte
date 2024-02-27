@@ -10,9 +10,9 @@
 </script>
 
 <CodeHighlightWrapper
-  class="{twJoin('text-sm py-3 px-4 overflow-auto', 'bg-[#efecf4] rounded-md')}"
+  class="{twJoin('text-sm py-3 px-3 overflow-auto', 'bg-[#efecf4] rounded-md')}"
 >
-  <div slot="rows" class="flex flex-col gap-0.5">
+  <div slot="rows" class="flex flex-col">
     {#each rules as rule}
       {#if code[rule]}
         {@const value = code[rule]}

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import NoticeView from "@/entities/notice/ui/notice-view.svelte";
   import { settingsStore } from "@/entities/settings";
   import { DesignPage } from "@/pages/design-page";
   import { SettingsPage } from "@/pages/settings-page";
@@ -72,3 +73,5 @@
 {#if isLoading}
   <Preloader />
 {/if}
+
+<NoticeView />
