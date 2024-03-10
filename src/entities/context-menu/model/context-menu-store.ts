@@ -11,17 +11,10 @@ type ContextMenuStore = {
 };
 
 const initContextMenuStore: ContextMenuStore = {
-	isOpen: true,
+	isOpen: false,
 	x: 0,
 	y: 0,
-	options: [
-		{
-			label: "some button",
-			fn: () => {
-				alert(1);
-			},
-		},
-	],
+	options: [],
 };
 
 export const contextMenuStore =

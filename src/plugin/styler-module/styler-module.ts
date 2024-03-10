@@ -42,8 +42,14 @@ export class StylerModule {
 	}
 
 	private initMessageToPluginObserver() {
-		msgToPluginObserver.subscribe(handleGetDesignLocalTextStylesQuery);
-		msgToPluginObserver.subscribe(handleGetDesignLocalPaintStylesQuery);
+		msgToPluginObserver.subscribe(
+			handleGetDesignLocalTextStylesQuery,
+			"get-design-local-text-styles-query",
+		);
+		msgToPluginObserver.subscribe(
+			handleGetDesignLocalPaintStylesQuery,
+			"get-design-local-paint-styles-query",
+		);
 
 		figma.ui.onmessage = (msg: MessageToPlugin) => {
 			msgToPluginObserver.broadcast(msg);

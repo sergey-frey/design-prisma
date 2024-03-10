@@ -35,8 +35,14 @@
   $: hasPaintStyles = Object.keys($designSystemStore.paintStyles).length > 0;
 
   onMount(() => {
-    msgToUIObserver.subscribe(handleGetDesignLocalTextStylesResponse);
-    msgToUIObserver.subscribe(handleGetDesignLocalPaintStylesResponse);
+    msgToUIObserver.subscribe(
+      handleGetDesignLocalTextStylesResponse,
+      "get-design-local-text-styles-response"
+    );
+    msgToUIObserver.subscribe(
+      handleGetDesignLocalPaintStylesResponse,
+      "get-design-local-paint-styles-response"
+    );
 
     postMessageToPlugin<GetDesignLocalTextStylesQuery>({
       action: "get-design-local-text-styles-query",
@@ -47,8 +53,14 @@
   });
 
   onDestroy(() => {
-    msgToUIObserver.unsubscribe(handleGetDesignLocalTextStylesResponse);
-    msgToUIObserver.unsubscribe(handleGetDesignLocalPaintStylesResponse);
+    msgToUIObserver.unsubscribe(
+      handleGetDesignLocalTextStylesResponse,
+      "get-design-local-text-styles-response"
+    );
+    msgToUIObserver.unsubscribe(
+      handleGetDesignLocalPaintStylesResponse,
+      "get-design-local-paint-styles-response"
+    );
   });
 </script>
 

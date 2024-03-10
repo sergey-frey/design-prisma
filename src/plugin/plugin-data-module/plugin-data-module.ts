@@ -25,9 +25,18 @@ export class PluginDataModule {
 	public init() {
 		this.initSettings();
 
-		msgToPluginObserver.subscribe(this.handleGetSettingsQuery.bind(this));
-		msgToPluginObserver.subscribe(this.handleSetSettingsQuery.bind(this));
-		msgToPluginObserver.subscribe(this.handleResetPluginDataMessage.bind(this));
+		msgToPluginObserver.subscribe(
+			this.handleGetSettingsQuery.bind(this),
+			"get-settings-query",
+		);
+		msgToPluginObserver.subscribe(
+			this.handleSetSettingsQuery.bind(this),
+			"set-settings-query",
+		);
+		msgToPluginObserver.subscribe(
+			this.handleResetPluginDataMessage.bind(this),
+			"reset-plugin-data-message",
+		);
 	}
 
 	private initSettings() {

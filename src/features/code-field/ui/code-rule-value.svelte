@@ -18,8 +18,6 @@
       )
       .replace("\n", "");
 
-    console.log(res);
-
     return res;
   };
 

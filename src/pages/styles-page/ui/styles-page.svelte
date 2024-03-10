@@ -19,11 +19,17 @@
   $: hasNodeText = Boolean($selectedNodeStore.nodeText);
 
   onMount(() => {
-    msgToUIObserver.subscribe(handleSelectedNodeChangeMessage);
+    msgToUIObserver.subscribe(
+      handleSelectedNodeChangeMessage,
+      "selected-node-change"
+    );
   });
 
   onDestroy(() => {
-    msgToUIObserver.unsubscribe(handleSelectedNodeChangeMessage);
+    msgToUIObserver.unsubscribe(
+      handleSelectedNodeChangeMessage,
+      "selected-node-change"
+    );
   });
 </script>
 

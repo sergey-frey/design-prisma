@@ -39,11 +39,17 @@
     postMessageToPlugin<GetSettingsQuery>({
       action: "get-settings-query",
     });
-    msgToUIObserver.subscribe(handleGetSettingsResponse);
+    msgToUIObserver.subscribe(
+      handleGetSettingsResponse,
+      "get-settings-response"
+    );
   });
 
   onDestroy(() => {
-    msgToUIObserver.unsubscribe(handleGetSettingsResponse);
+    msgToUIObserver.unsubscribe(
+      handleGetSettingsResponse,
+      "get-settings-response"
+    );
   });
 </script>
 
