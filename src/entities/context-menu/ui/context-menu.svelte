@@ -2,6 +2,8 @@
   import { Menu, MenuItems, MenuItem } from "@rgossiaux/svelte-headlessui";
   import { twJoin } from "tailwind-merge";
   import { contextMenuStore } from "..";
+  import { scale } from "svelte/transition";
+  import { cubicIn, cubicOut } from "svelte/easing";
 
   const handleOptionClick = (cb: () => void) => {
     return () => {
@@ -50,8 +52,9 @@
 <Menu>
   {#if $contextMenuStore.isOpen}
     <div
+      transition:scale="{{ duration: 150, opacity: 0 }}"
       use:getContextMenuDimension
-      class="{twJoin('fixed')}"
+      class="{twJoin('fixed transition-all')}"
       style="top: {pos.y}px; left: {pos.x}px"
     >
       <MenuItems
