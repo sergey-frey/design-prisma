@@ -1,14 +1,15 @@
 <script lang="ts">
-  import { twJoin } from "tailwind-merge";
+  import { noticeStore } from "@/entities/notice";
+  import { copyToClipboard } from "@/shared/lib";
   import CodeRuleValue from "./code-rule-value.svelte";
   import CodeRule from "./code-rule.svelte";
-  import { copyToClipboard } from "@/shared/lib";
-  import { noticeStore } from "@/entities/notice";
+  import { twJoin } from "tailwind-merge";
+  import { contextMenuStore } from "@/entities/context-menu";
+  import { content } from "@/shared/content";
+  import { settingsStore } from "@/entities/settings";
 
   export let rule: string | number;
   export let value: string;
-
-  $: codeRowString = `${rule}: ${value};`;
 
   let noticeTimeout: number | null = null;
 
@@ -18,8 +19,8 @@
     }, 800);
   };
 
-  const copyRow = () => {
-    copyToClipboard(codeRowString).then(() => {
+  const copyWithNotice = (text: string) => {
+    copyToClipboard(text).then(() => {
       if (!$noticeStore.isShow) {
         $noticeStore.message = "Скопировано";
         $noticeStore.isShow = true;
@@ -30,14 +31,40 @@
       }
     });
   };
+
+  const copyRow = () => {
+    copyWithNotice(`${rule}: ${value};`);
+  };
+
+  const copyValue = () => {
+    copyWithNotice(value);
+  };
+
+  const handleRowOnContextmenu = (e: MouseEvent) => {
+    $contextMenuStore.isOpen = true;
+    $contextMenuStore.x = e.clientX;
+    $contextMenuStore.y = e.clientY;
+    $contextMenuStore.options = [
+      {
+        label: content[$settingsStore.lang].contextMenu.codeRowOptions.copyRow,
+        fn: copyRow,
+      },
+      {
+        label:
+          content[$settingsStore.lang].contextMenu.codeRowOptions.copyValue,
+        fn: copyValue,
+      },
+    ];
+  };
 </script>
 
-<button
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div
   class="{twJoin(
-    'flex cursor-pointer rounded-[4px]',
-    'hover:bg-indigo-200 px-2 py-[1px]'
+    'cursor-pointer rounded-[4px]',
+    'hover:bg-indigo-200 px-2 py-0.5'
   )}"
-  on:click="{copyRow}"
+  on:contextmenu="{handleRowOnContextmenu}"
 >
   <CodeRule {rule} />: <CodeRuleValue {value} />;
-</button>
+</div>

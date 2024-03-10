@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { ContextMenu, contextMenuStore } from "@/entities/context-menu";
   import NoticeView from "@/entities/notice/ui/notice-view.svelte";
   import { settingsStore } from "@/entities/settings";
   import { DesignPage } from "@/pages/design-page";
@@ -46,6 +47,8 @@
   });
 </script>
 
+<svelte:window on:click="{() => ($contextMenuStore.isOpen = false)}" />
+
 <main class="flex flex-col h-full">
   <Navigation class="sticky top-0 z-50" />
 
@@ -73,5 +76,7 @@
 {#if isLoading}
   <Preloader />
 {/if}
+
+<ContextMenu />
 
 <NoticeView />

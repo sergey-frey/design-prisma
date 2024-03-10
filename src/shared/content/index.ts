@@ -4,6 +4,12 @@ type PageWrapperContent = Record<NavPage, { title: string }>;
 
 type LangContent = {
 	nav: Record<NavPage, string>;
+	contextMenu: {
+		codeRowOptions: {
+			copyRow: string;
+			copyValue: string;
+		};
+	};
 	pages: PageWrapperContent & {
 		STYLES: {
 			elementPrefix: string;
@@ -45,6 +51,12 @@ export const content: Record<Lang, LangContent> = {
 			DESIGN: "Макет",
 			STYLES: "Стили",
 			SETTINGS: "Настройки",
+		},
+		contextMenu: {
+			codeRowOptions: {
+				copyRow: "Скопировать строку",
+				copyValue: "Скопировать значение",
+			},
 		},
 		pages: {
 			DESIGN: {
@@ -94,6 +106,12 @@ export const content: Record<Lang, LangContent> = {
 			STYLES: "Styles",
 			SETTINGS: "Settings",
 		},
+		contextMenu: {
+			codeRowOptions: {
+				copyRow: "Copy row",
+				copyValue: "Copy rule value",
+			},
+		},
 		pages: {
 			DESIGN: {
 				title: "Design system 📖",
@@ -105,7 +123,7 @@ export const content: Record<Lang, LangContent> = {
 				},
 			},
 			STYLES: {
-				title: "Selected element stiles 🔍",
+				title: "Selected element styles 🔍",
 				elementPrefix: "Element",
 				nodeBlockTitle: "Block model",
 				nodeCSSTitle: "Styles",

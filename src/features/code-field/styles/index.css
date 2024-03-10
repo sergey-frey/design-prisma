@@ -3,7 +3,5 @@
 }
 
 .color-with-preview {
-  align-items: center;
-  display: flex;
-  gap: 2px;
+  display: inline-block;
 }

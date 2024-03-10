@@ -2,26 +2,31 @@
   export let value: string;
 
   const getColorPreview = (color: string) => {
-    return `
-      <div
-        class="flex w-3 h-3 border-[1px] border-black"
-        style="background-color: ${color};"
-      ></div>`;
+    return `<span class="inline-block w-3 h-3 border-[1px] border-black mr-0.5" style="background-color: ${color};"></span>`;
   };
 
   const getColorWithPreview = (color: string) => {
-    return `<div class="color-with-preview">${getColorPreview(color)}${color}</div>`;
+    return `<span class="color-with-preview">${getColorPreview(color)}${color}</span>`;
+  };
+
+  const addPreview = (v: string) => {
+    const res = v
+      .replace(/#([0-9a-fA-F]{6,8})/g, (match) => getColorWithPreview(match))
+      .replace(
+        /rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}(?:\s*,\s*\d*(?:\.\d+)?)?\s*\)/g,
+        (match) => getColorWithPreview(match)
+      )
+      .replace("\n", "");
+
+    console.log(res);
+
+    return res;
   };
 
   // TODO: extract to lib
-  $: value = value
-    .replace(/#([0-9a-fA-F]{6,8})/g, (match) => getColorWithPreview(match))
-    .replace(
-      /rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}(?:\s*,\s*\d*(?:\.\d+)?)?\s*\)/g,
-      (match) => getColorWithPreview(match)
-    );
+  $: value = addPreview(value);
 </script>
 
-<span class="text-[#26232a] flex items-center gap-1">
-  {@html value}
-</span>
+<!-- <span class="text-[#26232a] flex items-center gap-1"> -->
+{@html value}
+<!-- </span> -->
