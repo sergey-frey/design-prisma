@@ -67,6 +67,4 @@
       code="{$selectedNodeStore.nodeText}"
     />
   {/if}
-
-  {$selectedNodeStore.nodeText}
 </section>
