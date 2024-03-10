@@ -58,7 +58,6 @@
   {/if}
 
   {#if hasNodeSVG}
-    <!-- FIXME: can't show formatted string code -->
     <CodeField title="SVG" code="{$selectedNodeStore.nodeSVG ?? ''}" isSVG />
   {/if}
 
@@ -68,4 +67,6 @@
       code="{$selectedNodeStore.nodeText}"
     />
   {/if}
+
+  {$selectedNodeStore.nodeText}
 </section>

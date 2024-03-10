@@ -17,7 +17,7 @@
   export let title: string = "";
   export let isSVG: boolean = false;
 
-  const getHighlightProps = async () => {
+  const getHighlightProps = async (code: string | NodeCSS) => {
     if (isSVG && typeof code === "string") {
       return {
         language: xml,
@@ -33,6 +33,8 @@
       code: code as string,
     };
   };
+
+  $: highlightProps = getHighlightProps(code);
 </script>
 
 <svelte:head>
@@ -44,7 +46,7 @@
     <p>{title}</p>
     <div class="relative">
       {#if typeof code === "string"}
-        {#await getHighlightProps() then { language, code }}
+        {#await highlightProps then { language, code }}
           <CopyButton {code} class="absolute top-2 right-2" />
           <Highlight class="text-sm" {language} {code} />
         {/await}
