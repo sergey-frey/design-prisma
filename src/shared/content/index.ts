@@ -54,8 +54,8 @@ export const content: Record<Lang, LangContent> = {
 		},
 		contextMenu: {
 			codeRowOptions: {
-				copyRow: "Скопировать строку",
-				copyValue: "Скопировать значение",
+				copyRow: "Копировать строку",
+				copyValue: "Копировать значение",
 			},
 		},
 		pages: {
@@ -87,6 +87,7 @@ export const content: Record<Lang, LangContent> = {
 					todoList: [
 						"Выделить в отдельный блок flex-стили элемента",
 						"Добавить в переменные макета шрифты",
+						"Добавить возможность изменять размер окна плагина",
 						"Одна классная штука :)",
 					],
 				},
@@ -141,6 +142,7 @@ export const content: Record<Lang, LangContent> = {
 					todoList: [
 						"Extract flex-styles to separate block",
 						"Add fonts to design variables",
+            "Add plugin window resize",
 						"Something cool :)",
 					],
 				},

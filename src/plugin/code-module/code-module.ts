@@ -3,8 +3,12 @@ import type { NodeBlock, NodeCSS } from "@/shared/types";
 
 export const getNodeCSS = async (node: SceneNode): Promise<NodeCSS> => {
 	const css = await node.getCSSAsync();
-	css.width = "";
-	css.height = "";
+
+	// biome-ignore lint/performance/noDelete: <explanation>
+	delete css.width;
+	// biome-ignore lint/performance/noDelete: <explanation>
+	delete css.height;
+
 	return css as NodeCSS;
 };
 
