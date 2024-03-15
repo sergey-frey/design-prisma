@@ -88,6 +88,7 @@ export const content: Record<Lang, LangContent> = {
 						"Выделить в отдельный блок flex-стили элемента",
 						"Добавить в переменные макета шрифты",
 						"Добавить возможность изменять размер окна плагина",
+						"Добавить настройку для отключения CSS переменных в стилях",
 						"Одна классная штука :)",
 					],
 				},
@@ -142,7 +143,8 @@ export const content: Record<Lang, LangContent> = {
 					todoList: [
 						"Extract flex-styles to separate block",
 						"Add fonts to design variables",
-            "Add plugin window resize",
+						"Add plugin window resize",
+            'Add setting to disable CSS variables into styles',
 						"Something cool :)",
 					],
 				},
