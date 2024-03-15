@@ -103,7 +103,6 @@ export const content: Record<Lang, LangContent> = {
 					todoList: [
 						"Выделить в отдельный блок flex-стили элемента",
 						"Добавить в переменные макета шрифты",
-						"Добавить настройку для отключения CSS переменных в стилях",
 						"Одна классная штука :)",
 					],
 				},
@@ -166,7 +165,6 @@ export const content: Record<Lang, LangContent> = {
 					todoList: [
 						"Extract flex-styles to separate block",
 						"Add fonts to design variables",
-						"Add setting to disable CSS variables into styles",
 						"Something cool :)",
 					],
 				},
