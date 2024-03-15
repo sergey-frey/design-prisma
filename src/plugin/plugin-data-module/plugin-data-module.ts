@@ -19,6 +19,10 @@ export class PluginDataModule {
 			lang: "ru",
 			units: Unit.px,
 			nav: "DESIGN",
+			size: {
+				width: 400,
+				height: 700,
+			},
 		},
 	};
 
@@ -44,6 +48,9 @@ export class PluginDataModule {
 
 		if (settings === undefined) {
 			this.setData("settings", this.initData.settings);
+		} else {
+			// Если уже были какие-то настройки, добавим их, а поля, которых нет, заполним по умолчанию
+			this.setData("settings", Object.assign(this.initData.settings, settings));
 		}
 	}
 
@@ -69,6 +76,10 @@ export class PluginDataModule {
 		}
 	}
 
+	public getSettings() {
+		return this.getData("settings");
+	}
+
 	private handleGetSettingsQuery(msg: MessageToPlugin) {
 		if (msg.action !== "get-settings-query") return;
 
@@ -85,6 +96,10 @@ export class PluginDataModule {
 	private handleSetSettingsQuery(msg: MessageToPlugin) {
 		if (msg.action !== "set-settings-query") return;
 		this.setData("settings", msg.settings);
+
+		const size = msg.settings.size;
+
+		figma.ui.resize(size.width, size.height);
 
 		postMessageToUI<GetSettingsResponse>({
 			action: "get-settings-response",

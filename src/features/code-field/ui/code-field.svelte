@@ -1,18 +1,18 @@
 <script lang="ts">
-  import theme from "svelte-highlight/styles/atelier-cave-light";
-
   import { settingsStore } from "@/entities/settings";
   import { convertUtilsForNodeCSS, formatStyles } from "@/shared/lib";
   import type { NodeCSS } from "@/shared/types";
+  import { RmbIcon } from "@/shared/ui/icons";
   import { format } from "prettier";
   import htmlParser from "prettier/parser-html";
   import { Highlight } from "svelte-highlight";
   import { plaintext, xml } from "svelte-highlight/languages";
+  import theme from "svelte-highlight/styles/atelier-cave-light";
   import CodeHighlight from "./code-highlight.svelte";
   import CopyButton from "./copy-button.svelte";
 
   import "../styles/index.css";
-  import RmbIcon from "@/shared/ui/icons/rmb-icon.svelte";
+  import { content } from "@/shared/content";
 
   export let code: NodeCSS | string;
   export let isSVG: boolean = false;
@@ -49,7 +49,9 @@
       {#if rmbNotice}
         <div class="flex items-center gap-1">
           <RmbIcon class="w-2" />
-          <span class="text-sm px-1 pb-0.5 rounded-md bg-slate-200">пкм</span>
+          <span class="text-sm px-1 pb-0.5 rounded-md bg-slate-200">
+            {content[$settingsStore.lang].codeField.rmb}
+          </span>
         </div>
       {/if}
     </div>

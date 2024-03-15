@@ -2,6 +2,7 @@
   import { ContextMenu, contextMenuStore } from "@/entities/context-menu";
   import NoticeView from "@/entities/notice/ui/notice-view.svelte";
   import { settingsStore } from "@/entities/settings";
+  import ResizeController from "@/features/resize/ui/resize-controller.svelte";
   import { DesignPage } from "@/pages/design-page";
   import { SettingsPage } from "@/pages/settings-page";
   import { StylesPage } from "@/pages/styles-page";
@@ -86,3 +87,5 @@
 <ContextMenu />
 
 <NoticeView />
+
+<ResizeController />

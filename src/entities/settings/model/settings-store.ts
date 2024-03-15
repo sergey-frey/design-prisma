@@ -6,6 +6,10 @@ const initSettingsStore: Settings = {
 	units: Unit.px,
 	hideDesignSystem: true,
 	nav: "DESIGN",
+	size: {
+		width: 400,
+		height: 700,
+	},
 };
 
 export const settingsStore = writable<Settings>(initSettingsStore);

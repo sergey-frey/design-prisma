@@ -23,14 +23,24 @@ export class StylerModule {
 		this.selectedNode = figma.currentPage.selection[0];
 		this.pluginDataModule = pluginDataModule;
 
-		this.init();
 		this.pluginDataModule.init();
+		this.init();
 	}
 
 	public init() {
+		const settings = this.pluginDataModule.getSettings();
+
+		let width = 400;
+		let height = 700;
+
+		if (settings) {
+			width = settings.size.width;
+			height = settings.size.height;
+		}
+
 		figma.showUI(__html__, {
-			width: 400,
-			height: 700,
+			width,
+			height,
 			position: {
 				x: 100000,
 				y: -100000,

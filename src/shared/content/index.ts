@@ -10,6 +10,9 @@ type LangContent = {
 			copyValue: string;
 		};
 	};
+	codeField: {
+		rmb: string;
+	};
 	pages: PageWrapperContent & {
 		STYLES: {
 			elementPrefix: string;
@@ -57,6 +60,9 @@ export const content: Record<Lang, LangContent> = {
 				copyRow: "Копировать строку",
 				copyValue: "Копировать значение",
 			},
+		},
+		codeField: {
+			rmb: "пкм",
 		},
 		pages: {
 			DESIGN: {
@@ -114,6 +120,9 @@ export const content: Record<Lang, LangContent> = {
 				copyValue: "Copy rule value",
 			},
 		},
+		codeField: {
+			rmb: "rmb",
+		},
 		pages: {
 			DESIGN: {
 				title: "Design system 📖",
@@ -144,7 +153,7 @@ export const content: Record<Lang, LangContent> = {
 						"Extract flex-styles to separate block",
 						"Add fonts to design variables",
 						"Add plugin window resize",
-            'Add setting to disable CSS variables into styles',
+						"Add setting to disable CSS variables into styles",
 						"Something cool :)",
 					],
 				},

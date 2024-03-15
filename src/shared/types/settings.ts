@@ -8,4 +8,8 @@ export type Settings = {
 	units: Unit;
 	hideDesignSystem: boolean;
 	nav: NavPage;
+	size: {
+		width: number;
+		height: number;
+	};
 };
