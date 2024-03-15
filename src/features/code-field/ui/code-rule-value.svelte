@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { settingsStore } from "@/entities/settings";
+  import { pipe } from "@/shared/lib";
+
   export let value: string;
 
   const getColorPreview = (color: string) => {
@@ -9,7 +12,7 @@
     return `<span class="color-with-preview">${getColorPreview(color)}${color}</span>`;
   };
 
-  const addPreview = (v: string) => {
+  const addPreview = (v: string): string => {
     const res = v
       .replace(/#([0-9a-fA-F]{6,8})/g, (match) => getColorWithPreview(match))
       .replace(
@@ -21,8 +24,20 @@
     return res;
   };
 
+  const replaceCSSVars = (s: string): string => {
+    if (!$settingsStore.disableDesignVariables) return s;
+
+    return s.replace(/var\(--.+, .+\)/, (match) => {
+      const matchArr = match.split("");
+      const startIndex = matchArr.findIndex((s) => s === ",") + 1;
+      const endIndex = matchArr.findIndex((s) => s === ")");
+
+      return match.slice(startIndex, endIndex);
+    });
+  };
+
   // TODO: extract to lib
-  $: value = addPreview(value);
+  $: value = pipe(value, [addPreview, replaceCSSVars]);
 </script>
 
 <!-- <span class="text-[#26232a] flex items-center gap-1"> -->

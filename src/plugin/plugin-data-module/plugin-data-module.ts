@@ -23,6 +23,7 @@ export class PluginDataModule {
 				width: 400,
 				height: 700,
 			},
+			disableDesignVariables: false,
 		},
 	};
 

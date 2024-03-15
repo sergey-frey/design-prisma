@@ -33,6 +33,7 @@ type LangContent = {
 			switchUnits: string;
 			toggleSettings: {
 				hideDesignSystem: string;
+				disableDesignVariables: string;
 			};
 			resetSize: {
 				title: string;
@@ -91,6 +92,7 @@ export const content: Record<Lang, LangContent> = {
 				switchUnits: "Сменить единицы измерения",
 				toggleSettings: {
 					hideDesignSystem: "Скрыть :root селектор",
+					disableDesignVariables: "Скрыть var(--some-var, value)",
 				},
 				resetSize: {
 					title: "Сбросить размер плагина",
@@ -153,6 +155,7 @@ export const content: Record<Lang, LangContent> = {
 				switchUnits: "Switch units",
 				toggleSettings: {
 					hideDesignSystem: "Hide :root selector",
+					disableDesignVariables: "Hide var(--some-var, value)",
 				},
 				resetSize: {
 					title: "Reset plugin size",

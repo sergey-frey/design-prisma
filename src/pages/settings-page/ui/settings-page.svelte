@@ -11,6 +11,10 @@
     <LangSetting />
     <UnitsSetting />
     <ToggleSetting textKey="hideDesignSystem" settingKey="hideDesignSystem" />
+    <ToggleSetting
+      textKey="disableDesignVariables"
+      settingKey="disableDesignVariables"
+    />
     <ResetSizeSetting />
   </div>
   <hr />

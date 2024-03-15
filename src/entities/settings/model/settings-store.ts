@@ -10,6 +10,7 @@ export const initSettingsStore: Settings = {
 		width: 400,
 		height: 700,
 	},
+	disableDesignVariables: false,
 };
 
 export const settingsStore = writable<Settings>(initSettingsStore);

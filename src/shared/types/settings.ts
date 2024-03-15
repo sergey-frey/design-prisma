@@ -12,4 +12,5 @@ export type Settings = {
 		width: number;
 		height: number;
 	};
+	disableDesignVariables: boolean;
 };

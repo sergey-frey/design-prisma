@@ -6,12 +6,13 @@ export const msgToPluginObserver = new Observer<MessageToPlugin>();
 
 export { copyToClipboard } from "./clipboard";
 export {
+	convertUtilsForNodeCSS,
 	figmaRGBToHEX,
 	formatStyles,
 	normalizeSeparatedStyle,
 	paintStyleNameToCSSVar,
 	pxToRem,
-	convertUtilsForNodeCSS,
 } from "./convert";
 export { postMessageToPlugin, postMessageToUI } from "./message";
+export { pipe } from "./pipe";
 export { sortByField, toTitle } from "./string";
