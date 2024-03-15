@@ -34,6 +34,10 @@ type LangContent = {
 			toggleSettings: {
 				hideDesignSystem: string;
 			};
+			resetSize: {
+				title: string;
+				buttonText: string;
+			};
 			todo: {
 				todoTitle: string;
 				todoList: string[];
@@ -87,6 +91,10 @@ export const content: Record<Lang, LangContent> = {
 				switchUnits: "Сменить единицы измерения",
 				toggleSettings: {
 					hideDesignSystem: "Скрыть :root селектор",
+				},
+				resetSize: {
+					title: "Сбросить размер плагина",
+					buttonText: "Сбросить",
 				},
 				todo: {
 					todoTitle: "Ближайшие цели по развитию",
@@ -145,6 +153,10 @@ export const content: Record<Lang, LangContent> = {
 				switchUnits: "Switch units",
 				toggleSettings: {
 					hideDesignSystem: "Hide :root selector",
+				},
+				resetSize: {
+					title: "Reset plugin size",
+					buttonText: "Reset",
 				},
 				todo: {
 					todoTitle: "Development goals",

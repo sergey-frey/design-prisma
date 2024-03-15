@@ -1,5 +1,6 @@
 <script lang="ts">
   import LangSetting from "./lang-setting.svelte";
+  import ResetSizeSetting from "./reset-size-setting.svelte";
   import TodoList from "./todo-list.svelte";
   import ToggleSetting from "./toggle-setting.svelte";
   import UnitsSetting from "./units-setting.svelte";
@@ -10,6 +11,7 @@
     <LangSetting />
     <UnitsSetting />
     <ToggleSetting textKey="hideDesignSystem" settingKey="hideDesignSystem" />
+    <ResetSizeSetting />
   </div>
   <hr />
   <TodoList />
