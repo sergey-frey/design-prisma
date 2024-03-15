@@ -12,10 +12,11 @@
   import CopyButton from "./copy-button.svelte";
 
   import "../styles/index.css";
+  import RmbIcon from "@/shared/ui/icons/rmb-icon.svelte";
 
   export let code: NodeCSS | string;
-  export let title: string = "";
   export let isSVG: boolean = false;
+  export let rmbNotice: boolean = false;
 
   const getHighlightProps = async (code: string | NodeCSS) => {
     if (isSVG && typeof code === "string") {
@@ -43,7 +44,15 @@
 
 {#if code}
   <div>
-    <p>{title}</p>
+    <div class="flex items-center justify-between">
+      <slot name="title" />
+      {#if rmbNotice}
+        <div class="flex items-center gap-1">
+          <RmbIcon class="w-2" />
+          <span class="text-sm px-1 pb-0.5 rounded-md bg-slate-200">пкм</span>
+        </div>
+      {/if}
+    </div>
     <div class="relative">
       {#if typeof code === "string"}
         {#await highlightProps then { language, code }}

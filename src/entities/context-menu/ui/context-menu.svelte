@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { Menu, MenuItems, MenuItem } from "@rgossiaux/svelte-headlessui";
+  import { Menu, MenuItem, MenuItems } from "@rgossiaux/svelte-headlessui";
+  import { scale } from "svelte/transition";
   import { twJoin } from "tailwind-merge";
   import { contextMenuStore } from "..";
-  import { scale } from "svelte/transition";
-  import { cubicIn, cubicOut } from "svelte/easing";
 
   const handleOptionClick = (cb: () => void) => {
     return () => {

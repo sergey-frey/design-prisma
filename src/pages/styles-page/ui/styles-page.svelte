@@ -44,27 +44,32 @@
   {/if}
 
   {#if hasNodeBlock}
-    <CodeField
-      title="{content[$settingsStore.lang].pages.STYLES.nodeBlockTitle}"
-      code="{$selectedNodeStore.nodeBlock}"
-    />
+    <CodeField code="{$selectedNodeStore.nodeBlock}" rmbNotice>
+      <p slot="title">
+        {content[$settingsStore.lang].pages.STYLES.nodeBlockTitle}
+      </p>
+    </CodeField>
   {/if}
 
   {#if hasNodeCSS}
-    <CodeField
-      title="{content[$settingsStore.lang].pages.STYLES.nodeCSSTitle}"
-      code="{$selectedNodeStore.nodeCSS}"
-    />
+    <CodeField code="{$selectedNodeStore.nodeCSS}" rmbNotice>
+      <p slot="title">
+        {content[$settingsStore.lang].pages.STYLES.nodeCSSTitle}
+      </p>
+    </CodeField>
   {/if}
 
   {#if hasNodeSVG}
-    <CodeField title="SVG" code="{$selectedNodeStore.nodeSVG ?? ''}" isSVG />
+    <CodeField code="{$selectedNodeStore.nodeSVG ?? ''}" isSVG>
+      <p slot="title">SVG</p>
+    </CodeField>
   {/if}
 
   {#if hasNodeText}
-    <CodeField
-      title="{content[$settingsStore.lang].pages.STYLES.nodeTextTitle}"
-      code="{$selectedNodeStore.nodeText}"
-    />
+    <CodeField code="{$selectedNodeStore.nodeText}">
+      <p slot="title">
+        {content[$settingsStore.lang].pages.STYLES.nodeTextTitle}
+      </p>
+    </CodeField>
   {/if}
 </section>

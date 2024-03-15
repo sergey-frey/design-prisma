@@ -66,10 +66,11 @@
 
 <section class="flex flex-col gap-5">
   {#if hasPaintStyles && $settingsStore.hideDesignSystem === false}
-    <CodeField
-      title="{content[$settingsStore.lang].pages.DESIGN.colorsTitle}"
-      code="{$designSystemStore.paintStyles}"
-    />
+    <CodeField code="{$designSystemStore.paintStyles}" rmbNotice>
+      <p slot="title">
+        {content[$settingsStore.lang].pages.DESIGN.colorsTitle}
+      </p>
+    </CodeField>
   {/if}
 
   <TextStylesView />

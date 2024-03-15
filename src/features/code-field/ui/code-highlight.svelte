@@ -9,7 +9,11 @@
 </script>
 
 <div
-  class="{twJoin('text-sm py-3 px-3 overflow-auto', 'bg-[#efecf4] rounded-md')}"
+  class="{twJoin(
+    'text-sm py-3 px-3 overflow-auto max-h-[300px]',
+    'bg-[#efecf4] rounded-md',
+    'whitespace-nowrap'
+  )}"
 >
   {#each rules as rule}
     {#if code[rule]}
