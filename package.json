@@ -4,11 +4,12 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "concurrently npm:watch:*",
+    "dev": "set NODE_ENV=development&& concurrently npm:watch:*",
+    "serve": "concurrently npm:watch:*",
     "build": "concurrently npm:build:*",
     "build:ui": "vite build --watch=false --config vite.config.ui.ts",
     "build:plugin": "vite build --watch=false --config vite.config.plugin.ts",
-    "watch:ui": "set NODE_ENV=development&& vite build --config vite.config.ui.ts",
+    "watch:ui": "vite build --config vite.config.ui.ts",
     "watch:plugin": "vite build --config vite.config.plugin.ts"
   },
   "devDependencies": {
