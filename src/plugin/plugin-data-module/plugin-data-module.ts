@@ -24,6 +24,7 @@ export class PluginDataModule {
 				height: 700,
 			},
 			disableDesignVariables: false,
+			disableCodeComments: true,
 		},
 	};
 

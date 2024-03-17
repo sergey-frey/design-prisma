@@ -11,6 +11,7 @@ export const initSettingsStore: Settings = {
 		height: 700,
 	},
 	disableDesignVariables: false,
+	disableCodeComments: true,
 };
 
 export const settingsStore = writable<Settings>(initSettingsStore);

@@ -13,4 +13,5 @@ export type Settings = {
 		height: number;
 	};
 	disableDesignVariables: boolean;
+	disableCodeComments: boolean;
 };

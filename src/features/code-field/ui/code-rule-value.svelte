@@ -36,8 +36,14 @@
     });
   };
 
+  export const removeComments = (s: string): string => {
+    if (!$settingsStore.disableCodeComments) return s;
+
+    return s.replace(/(\s*)\/\*(.*)\*\/(\s*)/, "");
+  };
+
   // TODO: extract to lib
-  $: value = pipe(value, [addPreview, replaceCSSVars]);
+  $: value = pipe(value, [addPreview, replaceCSSVars, removeComments]);
 </script>
 
 <!-- <span class="text-[#26232a] flex items-center gap-1"> -->

@@ -34,6 +34,7 @@ type LangContent = {
 			toggleSettings: {
 				hideDesignSystem: string;
 				disableDesignVariables: string;
+				disableCodeComments: string;
 			};
 			resetSize: {
 				title: string;
@@ -93,6 +94,7 @@ export const content: Record<Lang, LangContent> = {
 				toggleSettings: {
 					hideDesignSystem: "Скрыть :root селектор",
 					disableDesignVariables: "Скрыть var(--some-var, value)",
+					disableCodeComments: "Отключить комментарии в стилях",
 				},
 				resetSize: {
 					title: "Сбросить размер плагина",
@@ -155,6 +157,7 @@ export const content: Record<Lang, LangContent> = {
 				toggleSettings: {
 					hideDesignSystem: "Hide :root selector",
 					disableDesignVariables: "Hide var(--some-var, value)",
+					disableCodeComments: "Hide style comments",
 				},
 				resetSize: {
 					title: "Reset plugin size",

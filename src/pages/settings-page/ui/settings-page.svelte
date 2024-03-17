@@ -15,6 +15,10 @@
       textKey="disableDesignVariables"
       settingKey="disableDesignVariables"
     />
+    <ToggleSetting
+      textKey="disableCodeComments"
+      settingKey="disableCodeComments"
+    />
     <ResetSizeSetting />
   </div>
   <hr />

@@ -1,4 +1,6 @@
-export const pipe = <T>(value: T, modifications: ((v: T) => T)[]): T => {
+export type PipeModification<T> = (v: T) => T;
+
+export const pipe = <T>(value: T, modifications: PipeModification<T>[]): T => {
 	let result: T = value;
 
 	for (const m of modifications) {
