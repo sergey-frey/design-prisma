@@ -3,6 +3,8 @@ import type { Unit } from "./styles";
 
 export type Lang = "ru" | "en";
 
+export type CSSPreprocessor = "css" | "scss";
+
 export type Settings = {
 	lang: Lang;
 	units: Unit;
@@ -14,4 +16,5 @@ export type Settings = {
 	};
 	disableDesignVariables: boolean;
 	disableCodeComments: boolean;
+	preprocessor: CSSPreprocessor;
 };

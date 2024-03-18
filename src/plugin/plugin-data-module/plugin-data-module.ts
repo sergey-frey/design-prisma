@@ -25,6 +25,7 @@ export class PluginDataModule {
 			},
 			disableDesignVariables: false,
 			disableCodeComments: true,
+			preprocessor: "css",
 		},
 	};
 

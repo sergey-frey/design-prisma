@@ -6,7 +6,6 @@ export const msgToPluginObserver = new Observer<MessageToPlugin>();
 
 export { copyToClipboard } from "./clipboard";
 export {
-	convertUtilsForNodeCSS,
 	figmaRGBToHEX,
 	formatStyles,
 	normalizeSeparatedStyle,

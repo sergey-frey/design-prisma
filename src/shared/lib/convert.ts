@@ -13,10 +13,7 @@ export const normalizeSeparatedStyle = (
 	}
 };
 
-export const formatStyles = (
-	styles: NodeCSS | NodeBlock,
-	unit: Unit = Unit.px,
-): string => {
+export const formatStyles = (styles: NodeCSS | NodeBlock): string => {
 	let res = "";
 
 	for (const rule of Object.keys(styles) as Array<keyof typeof styles>) {
@@ -24,7 +21,7 @@ export const formatStyles = (
 
 		if (!value) continue;
 
-		res += `${rule}: ${convertUnits(value, unit)};\n`;
+		res += `${rule}: ${value};\n`;
 	}
 
 	return res;
@@ -61,25 +58,4 @@ export const figmaRGBToHEX = (color: Mutable<RGB>, opacity: number): string => {
 
 export const pxToRem = (px: number, k: number): number => {
 	return Number((px / k).toFixed(3));
-};
-
-export const convertUnits = (value: string, unit: Unit): string => {
-	// FIXME: Переделать по-человечески :)
-	if (unit === Unit.rem) {
-		return value.replace(/([^\s]+)px/g, (match) => {
-			return pxToRem(Number(match.slice(0, match.length - 2)), 16) + unit;
-		});
-	}
-
-	return value;
-};
-
-export const convertUtilsForNodeCSS = (code: NodeCSS, unit: Unit) => {
-	for (const rule of Object.keys(code) as Array<keyof NodeCSS>) {
-		if (code[rule]) {
-			code[rule] = convertUnits(code[rule], unit);
-		}
-	}
-
-	return code;
 };
