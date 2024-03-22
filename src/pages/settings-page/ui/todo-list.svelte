@@ -26,8 +26,10 @@
     {feedbackAbout}
     <span class="text-indigo-600">{CONTACTS.email} 🎉</span><br />
     {feedbackTg}:
-    <a href="https://t.me/serg_3str" target="_blank">
-      <span class="text-indigo-600 hover:font-semibold">{CONTACTS.tg}</span>
+    <a href="{CONTACTS.tg.href}" target="_blank">
+      <span class="text-indigo-600 hover:font-semibold">
+        {CONTACTS.tg.label}
+      </span>
     </a>
   </p>
 </div>
