@@ -20,7 +20,7 @@
 
 <button
   type="button"
-  class="{twJoin($$props.class, 'text-indigo-600 w-6 h-6')}"
+  class="{twJoin($$props.class, 'text-indigo-600 w-6 h-6', 'opacity-70')}"
   on:click="{handleClick}"
   title="Copy"
 >
