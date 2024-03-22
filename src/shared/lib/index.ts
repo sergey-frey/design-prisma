@@ -6,7 +6,6 @@ export const msgToPluginObserver = new Observer<MessageToPlugin>();
 
 export { copyToClipboard } from "./clipboard";
 export {
-	convertUtilsForNodeCSS,
 	figmaRGBToHEX,
 	formatStyles,
 	normalizeSeparatedStyle,
@@ -14,5 +13,5 @@ export {
 	pxToRem,
 } from "./convert";
 export { postMessageToPlugin, postMessageToUI } from "./message";
-export { pipe } from "./pipe";
+export { pipe, type PipeModification } from "./pipe";
 export { sortByField, toTitle } from "./string";

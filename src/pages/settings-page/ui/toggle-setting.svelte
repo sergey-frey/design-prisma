@@ -27,10 +27,10 @@
 {#if typeof $settingsStore[settingKey] === "boolean"}
   <button
     type="button"
-    class="flex gap-3 justify-between"
+    class="flex gap-3 justify-between items-center"
     on:click="{handleToggle}"
   >
-    <p>{text}</p>
+    <p class="text-start">{text}</p>
     <Toggle isChecked="{Boolean($settingsStore[settingKey])}" />
   </button>
 {/if}

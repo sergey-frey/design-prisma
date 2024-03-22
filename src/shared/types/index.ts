@@ -1,4 +1,4 @@
-import { NAVIGATION } from "@/shared/constants/navigation";
+import type { NAVIGATION } from "@/shared/constants/navigation";
 
 export type NavPage = keyof typeof NAVIGATION;
 
@@ -23,4 +23,4 @@ export type Mutable<Type> = {
 	-readonly [Key in keyof Type]: Type[Key];
 };
 
-export type { Lang, Settings } from "./settings";
+export type { Lang, Settings, CSSPreprocessor } from "./settings";

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { settingsStore } from "@/entities/settings";
-  import { convertUtilsForNodeCSS, formatStyles } from "@/shared/lib";
+  import { content } from "@/shared/content";
+  import { formatStyles } from "@/shared/lib";
   import type { NodeCSS } from "@/shared/types";
   import { RmbIcon } from "@/shared/ui/icons";
   import { format } from "prettier";
@@ -11,8 +12,8 @@
   import CodeHighlight from "./code-highlight.svelte";
   import CopyButton from "./copy-button.svelte";
 
+  import { applyModifications } from "../model/modification-node-css";
   import "../styles/index.css";
-  import { content } from "@/shared/content";
 
   export let code: NodeCSS | string;
   export let isSVG: boolean = false;
@@ -62,13 +63,13 @@
           <Highlight class="text-sm" {language} {code} />
         {/await}
       {:else}
-        {@const codeString = formatStyles(code, $settingsStore.units)}
-        {@const codeWithCorrectUnits = convertUtilsForNodeCSS(
+        {@const codeWithModifications = applyModifications(
           code,
-          $settingsStore.units
+          $settingsStore
         )}
+        {@const codeString = formatStyles(codeWithModifications)}
         <CopyButton code="{codeString}" class="absolute top-2 right-2" />
-        <CodeHighlight code="{codeWithCorrectUnits}" />
+        <CodeHighlight code="{codeWithModifications}" />
       {/if}
     </div>
   </div>

@@ -31,9 +31,11 @@ type LangContent = {
 		SETTINGS: {
 			switchLanguage: string;
 			switchUnits: string;
+			switchPreprocessor: string;
 			toggleSettings: {
 				hideDesignSystem: string;
 				disableDesignVariables: string;
+				disableCodeComments: string;
 			};
 			resetSize: {
 				title: string;
@@ -90,9 +92,11 @@ export const content: Record<Lang, LangContent> = {
 				title: "Дополнительные настройки ✅",
 				switchLanguage: "Сменить язык",
 				switchUnits: "Сменить единицы измерения",
+				switchPreprocessor: "Сменить препроцессор",
 				toggleSettings: {
 					hideDesignSystem: "Скрыть :root селектор",
 					disableDesignVariables: "Скрыть var(--some-var, value)",
+					disableCodeComments: "Отключить комментарии в стилях",
 				},
 				resetSize: {
 					title: "Сбросить размер плагина",
@@ -152,9 +156,11 @@ export const content: Record<Lang, LangContent> = {
 				title: "Other settings ✅",
 				switchLanguage: "Switch language",
 				switchUnits: "Switch units",
+				switchPreprocessor: "Switch preprocessor",
 				toggleSettings: {
 					hideDesignSystem: "Hide :root selector",
 					disableDesignVariables: "Hide var(--some-var, value)",
+					disableCodeComments: "Hide style comments",
 				},
 				resetSize: {
 					title: "Reset plugin size",

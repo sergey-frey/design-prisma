@@ -1,12 +1,12 @@
 <script lang="ts">
+  import { contextMenuStore } from "@/entities/context-menu";
   import { noticeStore } from "@/entities/notice";
-  import { copyToClipboard } from "@/shared/lib";
+  import { settingsStore } from "@/entities/settings";
+  import { content } from "@/shared/content";
+  import { copyToClipboard, pipe } from "@/shared/lib";
+  import { twJoin } from "tailwind-merge";
   import CodeRuleValue from "./code-rule-value.svelte";
   import CodeRule from "./code-rule.svelte";
-  import { twJoin } from "tailwind-merge";
-  import { contextMenuStore } from "@/entities/context-menu";
-  import { content } from "@/shared/content";
-  import { settingsStore } from "@/entities/settings";
 
   export let rule: string | number;
   export let value: string;
