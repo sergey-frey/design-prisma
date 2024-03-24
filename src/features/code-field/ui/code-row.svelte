@@ -1,6 +1,6 @@
 <script lang="ts">
   import { contextMenuStore } from "@/entities/context-menu";
-  import { noticeStore } from "@/entities/notice";
+  import { notification } from "@/entities/notice";
   import { settingsStore } from "@/entities/settings";
   import { content } from "@/shared/content";
   import { copyToClipboard } from "@/shared/utils";
@@ -11,24 +11,11 @@
   export let rule: string | number;
   export let value: string;
 
-  let noticeTimeout: number | null = null;
-
-  const getNoticeTimeout = () => {
-    return setTimeout(() => {
-      $noticeStore.isShow = false;
-    }, 800);
-  };
-
   const copyWithNotice = (text: string) => {
     copyToClipboard(text).then(() => {
-      if (!$noticeStore.isShow) {
-        $noticeStore.message = "Скопировано";
-        $noticeStore.isShow = true;
-        noticeTimeout = getNoticeTimeout();
-      } else if (noticeTimeout) {
-        clearTimeout(noticeTimeout);
-        noticeTimeout = getNoticeTimeout();
-      }
+      notification("Copied", {
+        delay: 800,
+      });
     });
   };
 
