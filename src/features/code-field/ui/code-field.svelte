@@ -1,9 +1,8 @@
 <script lang="ts">
   import { settingsStore } from "@/entities/settings";
   import { content } from "@/shared/content";
-  import { formatStyles } from "@/shared/lib";
   import type { NodeCSS } from "@/shared/types";
-  import { RmbIcon } from "@/shared/ui/icons";
+  import { formatStyles } from "@/shared/utils";
   import { format } from "prettier";
   import htmlParser from "prettier/parser-html";
   import { Highlight } from "svelte-highlight";
@@ -48,12 +47,9 @@
     <div class="flex items-center justify-between">
       <slot name="title" />
       {#if rmbNotice}
-        <div class="flex items-center gap-1">
-          <RmbIcon class="w-2" />
-          <span class="text-sm px-1 pb-0.5 rounded-md bg-slate-200">
-            {content[$settingsStore.lang].codeField.rmb}
-          </span>
-        </div>
+        <span class="text-sm font-semibold pr-1">
+          {content[$settingsStore.lang].codeField.rmb}
+        </span>
       {/if}
     </div>
     <div class="relative">

@@ -1,4 +1,4 @@
-import { postMessageToUI } from "@/shared/lib";
+import { postMessageToUI } from "@/shared/utils";
 import type {
 	GetDesignLocalPaintStylesResponse,
 	GetDesignLocalTextStylesResponse,

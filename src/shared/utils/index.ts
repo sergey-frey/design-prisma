@@ -12,6 +12,7 @@ export {
 	paintStyleNameToCSSVar,
 	pxToRem,
 } from "./convert";
+export { logger } from "./logger";
 export { postMessageToPlugin, postMessageToUI } from "./message";
 export { pipe, type PipeModification } from "./pipe";
 export { sortByField, toTitle } from "./string";

@@ -1,4 +1,4 @@
-import { pipe } from "@/shared/lib";
+import { pipe } from "@/shared/utils";
 import type { NodeCSS, Settings } from "@/shared/types";
 import { commentsValueMod } from "./comments-value-mod";
 import { cssVarsValueMod } from "./css-vars-value-mod";

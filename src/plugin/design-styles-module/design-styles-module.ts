@@ -1,4 +1,4 @@
-import { paintStyleNameToCSSVar } from "@/shared/lib";
+import { paintStyleNameToCSSVar } from "@/shared/utils";
 import type { LocalTextStyle, NodeCSS } from "@/shared/types";
 import { getPaintStyleValue } from "../code-module";
 

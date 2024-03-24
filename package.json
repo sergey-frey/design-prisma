@@ -31,8 +31,12 @@
     "vite-plugin-singlefile": "^0.13.5"
   },
   "dependencies": {
+    "bits-ui": "^0.20.0",
+    "clsx": "^2.1.0",
     "prettier": "^3.2.4",
-    "tailwind-merge": "^2.2.1"
+    "svelte-radix": "^1.1.0",
+    "tailwind-merge": "^2.2.2",
+    "tailwind-variants": "^0.2.1"
   },
   "overrides": {
     "@rgossiaux/svelte-headlessui": {

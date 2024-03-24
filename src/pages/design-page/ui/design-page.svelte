@@ -7,7 +7,7 @@
     msgToUIObserver,
     postMessageToPlugin,
     sortByField,
-  } from "@/shared/lib";
+  } from "@/shared/utils";
   import type {
     GetDesignLocalPaintStylesQuery,
     GetDesignLocalTextStylesQuery,
@@ -15,6 +15,7 @@
   } from "@/shared/types";
   import { onDestroy, onMount } from "svelte";
   import TextStylesView from "./text-styles-view.svelte";
+  import PageWrapper from "@/widgets/page-wrapper/ui/page-wrapper.svelte";
 
   const handleGetDesignLocalTextStylesResponse = (msg: MessageToUI) => {
     if (msg.action !== "get-design-local-text-styles-response") return;
@@ -64,14 +65,16 @@
   });
 </script>
 
-<section class="flex flex-col gap-5">
-  {#if hasPaintStyles && $settingsStore.hideDesignSystem === false}
-    <CodeField code="{$designSystemStore.paintStyles}" rmbNotice>
-      <p slot="title">
-        {content[$settingsStore.lang].pages.DESIGN.colorsTitle}
-      </p>
-    </CodeField>
-  {/if}
+<PageWrapper page="DESIGN">
+  <section class="flex flex-col gap-5">
+    {#if hasPaintStyles && $settingsStore.hideDesignSystem === false}
+      <CodeField code="{$designSystemStore.paintStyles}" rmbNotice>
+        <p slot="title">
+          {content[$settingsStore.lang].pages.DESIGN.colorsTitle}
+        </p>
+      </CodeField>
+    {/if}
 
-  <TextStylesView />
-</section>
+    <TextStylesView />
+  </section>
+</PageWrapper>

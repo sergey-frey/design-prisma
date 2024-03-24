@@ -1,4 +1,4 @@
-import { pxToRem } from "@/shared/lib";
+import { pxToRem } from "@/shared/utils";
 import { Unit } from "@/shared/types";
 
 export const unitsValueMod = (unit: Unit) => {

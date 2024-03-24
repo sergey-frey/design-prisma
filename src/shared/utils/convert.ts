@@ -1,5 +1,6 @@
-import { type NodeBlock, type NodeCSS, Unit } from "../types";
 import type { Mutable } from "@/shared/types/index";
+import type { NodeBlock, NodeCSS } from "../types";
+import { logger } from "./logger";
 
 export const normalizeSeparatedStyle = (
 	style: string | NodeCSS,
@@ -8,7 +9,7 @@ export const normalizeSeparatedStyle = (
 	try {
 		return style.split(" ").map((v) => Number(v.replace("px", "")));
 	} catch (err) {
-		console.log("normalizeSeparatedStyle ERROR:", err);
+		logger.log("normalizeSeparatedStyle ERROR:", err);
 		return undefined;
 	}
 };

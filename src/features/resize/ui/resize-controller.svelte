@@ -1,6 +1,6 @@
 <script lang="ts">
   import { settingsStore } from "@/entities/settings";
-  import { postMessageToPlugin } from "@/shared/lib";
+  import { postMessageToPlugin } from "@/shared/utils";
   import type { SetSettingsQuery } from "@/shared/types";
   import { ResizeIcon } from "@/shared/ui/icons";
   import { twJoin } from "tailwind-merge";
@@ -17,7 +17,7 @@
       node.setPointerCapture(event.pointerId);
       node.onpointermove = function (e) {
         const size = {
-          width: Math.max(315, Math.floor(e.clientX + 4)),
+          width: Math.max(320, Math.floor(e.clientX + 4)),
           height: Math.max(520, Math.floor(e.clientY + 4)),
         };
 

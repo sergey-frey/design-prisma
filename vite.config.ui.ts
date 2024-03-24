@@ -1,5 +1,5 @@
-import path from "path";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
+import path from "node:path";
 import { defineConfig } from "vite";
 import { viteSingleFile } from "vite-plugin-singlefile";
 
@@ -15,6 +15,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			"@": path.resolve(__dirname, "src"),
+			$lib: path.resolve("./src/shared/lib"),
 		},
 	},
 });

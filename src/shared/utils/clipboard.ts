@@ -1,8 +1,10 @@
+import { logger } from "./logger";
+
 export const copyToClipboard = (text: string) => {
 	return new Promise<boolean>((resolve, reject) => {
 		try {
 			const area = document.createElement("textarea");
-      area.classList.add('copy-area')
+			area.classList.add("copy-area");
 			document.body.appendChild(area);
 			area.value = text;
 			area.focus();
@@ -12,6 +14,7 @@ export const copyToClipboard = (text: string) => {
 			if (!result) {
 				throw new Error();
 			}
+			logger.log(`Copied to clipboard: ${text}`, result);
 			resolve(true);
 		} catch (err) {
 			reject(err);

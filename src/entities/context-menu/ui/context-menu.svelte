@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { logger } from "@/shared/utils";
   import { Menu, MenuItem, MenuItems } from "@rgossiaux/svelte-headlessui";
   import { scale } from "svelte/transition";
   import { twJoin } from "tailwind-merge";
@@ -22,9 +23,13 @@
       h: height,
       w: width,
     };
+
+    getMenuPosition({});
   };
 
   const getMenuPosition = (a: any) => {
+    if (menu.w === 0 || menu.h === 0) return;
+
     const browser = {
       w: window.innerWidth,
       h: window.innerHeight,
@@ -42,6 +47,8 @@
       pos.x = pos.x - menu.w;
     }
 
+    logger.log(menu);
+
     return pos;
   };
 
@@ -53,25 +60,23 @@
     <div
       transition:scale="{{ duration: 150, opacity: 0 }}"
       use:getContextMenuDimension
-      class="{twJoin('fixed transition-all')}"
-      style="top: {pos.y}px; left: {pos.x}px"
+      class="{twJoin('fixed')}"
+      style="top: {pos.y + 1}px; left: {pos.x + 1}px"
     >
       <MenuItems
         static
         class="{twJoin(
           'relative',
           'flex flex-col overflow-hidden',
-          'bg-slate-100 rounded-md shadow-lg'
+          'bg-popover rounded-md shadow-lg p-1'
         )}"
       >
         {#each $contextMenuStore.options as option}
           <MenuItem
             class="{twJoin(
-              'px-4 py-0.5 whitespace-nowrap transition-colors',
-              'cursor-pointer text-sm',
-              'hover:bg-slate-300',
-              'first:pt-1',
-              'last:pb-1'
+              'px-4 py-1 whitespace-nowrap transition-colors',
+              'cursor-pointer text-sm rounded-sm',
+              'hover:bg-accent'
             )}"
             on:click="{handleOptionClick(option.fn)}"
           >

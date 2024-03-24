@@ -1,25 +1,22 @@
 <script lang="ts">
+  import * as Select from "$lib/components/ui/select";
   import { settingsStore } from "@/entities/settings";
   import { content } from "@/shared/content";
-  import { postMessageToPlugin } from "@/shared/lib";
   import type { Lang, SetSettingsQuery } from "@/shared/types";
   import { FlagIcon } from "@/shared/ui/icons";
-  import ChevronUpDownIcon from "@/shared/ui/icons/chevron-up-down-icon.svelte";
-  import {
-    Listbox,
-    ListboxButton,
-    ListboxOption,
-    ListboxOptions,
-  } from "@rgossiaux/svelte-headlessui";
-  import { fly } from "svelte/transition";
-  import { twJoin } from "tailwind-merge";
+  import { postMessageToPlugin } from "@/shared/utils";
+  import type { Selected } from "bits-ui";
 
-  const langsList: Lang[] = ["ru", "en"];
-
-  const langLabelsMap: Record<Lang, string> = {
-    ru: "Русский",
-    en: "English",
-  };
+  const langsList: Selected<Lang>[] = [
+    {
+      label: "Русский",
+      value: "ru",
+    },
+    {
+      label: "English",
+      value: "en",
+    },
+  ];
 
   $: text = content[$settingsStore.lang].pages.SETTINGS.switchLanguage;
 
@@ -31,51 +28,36 @@
       settings: $settingsStore,
     });
   };
+
+  const handleSelectedChange = (
+    opt: Selected<Lang | undefined> | undefined
+  ) => {
+    if (!opt?.value) {
+      return;
+    }
+
+    handleSelect(opt.value);
+  };
 </script>
 
 <div class="flex items-center gap-3 justify-between">
   <p>{text}</p>
 
-  <Listbox let:open class="relative">
-    <ListboxButton
-      class="{twJoin(
-        'flex items-center gap-2',
-        'bg-slate-200 rounded-md px-2 py-1 transition-colors truncate',
-        'hover:bg-slate-300',
-        open && 'bg-slate-300'
-      )}"
-    >
-      <FlagIcon country="{$settingsStore.lang}" class="w-5" />
-      {langLabelsMap[$settingsStore.lang]}
-      <ChevronUpDownIcon class="w-4 text-slate-700" />
-    </ListboxButton>
-    {#if open}
-      <div
-        transition:fly="{{ duration: 200, y: 5 }}"
-        class="absolute z-10 pt-[5px] w-full"
-      >
-        <ListboxOptions
-          static
-          class="{twJoin('bg-slate-200 rounded-md overflow-hidden')}"
-        >
-          {#each langsList as lang}
-            <ListboxOption
-              value="{lang}"
-              class="{twJoin(
-                'flex items-center gap-2',
-                'px-2 py-[2px] transition-colors cursor-pointer',
-                'hover:bg-slate-300',
-                'first:pt-1',
-                'last:pb-1'
-              )}"
-              on:click="{() => handleSelect(lang)}"
-            >
-              <FlagIcon country="{lang}" class="w-5" />
-              {langLabelsMap[lang]}
-            </ListboxOption>
-          {/each}
-        </ListboxOptions>
-      </div>
-    {/if}
-  </Listbox>
+  <Select.Root onSelectedChange="{handleSelectedChange}">
+    <Select.Trigger class="w-fit flex items-center gap-2">
+      <FlagIcon class="w-4" country="{$settingsStore.lang}" />
+      <Select.Value
+        placeholder="{langsList.find((o) => o.value === $settingsStore.lang)
+          ?.label}"
+      />
+    </Select.Trigger>
+    <Select.Content>
+      {#each langsList as { label, value }}
+        <Select.Item {value} class="flex items-center gap-2">
+          <FlagIcon class="min-w-4 max-w-[16px]" country="{value}" />
+          {label}
+        </Select.Item>
+      {/each}
+    </Select.Content>
+  </Select.Root>
 </div>

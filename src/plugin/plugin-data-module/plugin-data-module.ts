@@ -1,10 +1,10 @@
-import { msgToPluginObserver, postMessageToUI } from "@/shared/lib";
 import {
-	type GetSettingsResponse,
-	type MessageToPlugin,
-	type Settings,
-	Unit,
+  type GetSettingsResponse,
+  type MessageToPlugin,
+  type Settings,
+  Unit,
 } from "@/shared/types";
+import { logger, msgToPluginObserver, postMessageToUI } from "@/shared/utils";
 
 type PluginData = {
 	settings: Settings;
@@ -74,7 +74,7 @@ export class PluginDataModule {
 				figma.currentPage.getPluginData(key),
 			) as PluginDataValue;
 		} catch (err) {
-			console.log(err);
+			logger.log(err);
 			return undefined;
 		}
 	}

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { copyToClipboard } from "@/shared/lib";
+  import { copyToClipboard } from "@/shared/utils";
   import { CopyIcon, OkIcon } from "@/shared/ui/icons";
   import { fade } from "svelte/transition";
   import { twJoin } from "tailwind-merge";

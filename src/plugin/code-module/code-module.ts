@@ -1,4 +1,4 @@
-import { figmaRGBToHEX } from "@/shared/lib";
+import { figmaRGBToHEX } from "@/shared/utils";
 import type { NodeBlock, NodeCSS } from "@/shared/types";
 
 export const getNodeCSS = async (node: SceneNode): Promise<NodeCSS> => {

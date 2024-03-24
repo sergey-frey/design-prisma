@@ -2,7 +2,7 @@ import {
 	handleGetDesignLocalPaintStylesQuery,
 	handleGetDesignLocalTextStylesQuery,
 } from "@/plugin/design-styles-module";
-import { msgToPluginObserver, postMessageToUI } from "@/shared/lib";
+import { msgToPluginObserver, postMessageToUI } from "@/shared/utils";
 import type {
 	MessageToPlugin,
 	SelectedNodeChangeMessage,

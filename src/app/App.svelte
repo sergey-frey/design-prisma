@@ -6,16 +6,14 @@
   import { DesignPage } from "@/pages/design-page";
   import { SettingsPage } from "@/pages/settings-page";
   import { StylesPage } from "@/pages/styles-page";
-  import { msgToUIObserver, postMessageToPlugin } from "@/shared/lib";
   import type {
     GetSettingsQuery,
     MessageToUI,
     MessageToUIEvent,
   } from "@/shared/types";
-  import { DevTools } from "@/widgets/dev-tools";
+  import { msgToUIObserver, postMessageToPlugin } from "@/shared/utils";
   import { Donate } from "@/widgets/donate";
   import { Navigation } from "@/widgets/navigation";
-  import { PageWrapper } from "@/widgets/page-wrapper";
   import Preloader from "@/widgets/preloader/ui/preloader.svelte";
   import { onDestroy, onMount } from "svelte";
 
@@ -56,27 +54,15 @@
 
 <svelte:window on:click="{() => ($contextMenuStore.isOpen = false)}" />
 
-<main class="flex flex-col h-full">
-  <Navigation class="sticky top-0 z-50" />
-
-  <PageWrapper class="grow">
-    {#if $settingsStore.nav === "STYLES"}
-      <StylesPage />
-    {:else if $settingsStore.nav === "DESIGN"}
-      <DesignPage />
-    {:else if $settingsStore.nav === "SETTINGS"}
-      <SettingsPage />
-    {/if}
-  </PageWrapper>
+<main class="flex flex-col h-full px-2 pt-1">
+  <Navigation class="grow">
+    <StylesPage slot="styles-page" />
+    <DesignPage slot="design-page" />
+    <SettingsPage slot="settings-page" />
+  </Navigation>
 
   {#if !isDev}
     <Donate />
-  {/if}
-
-  {#if isDev}
-    <div class="flex justify-end p-4">
-      <DevTools />
-    </div>
   {/if}
 </main>
 

@@ -1,9 +1,9 @@
 <script lang="ts">
+  import Switch from "$lib/components/ui/switch/switch.svelte";
   import { settingsStore } from "@/entities/settings";
   import { content } from "@/shared/content";
-  import { postMessageToPlugin } from "@/shared/lib";
   import type { SetSettingsQuery, Settings } from "@/shared/types";
-  import { Toggle } from "@/shared/ui/toggle";
+  import { postMessageToPlugin } from "@/shared/utils";
 
   $: toggleSettings =
     content[$settingsStore.lang].pages.SETTINGS.toggleSettings;
@@ -31,6 +31,6 @@
     on:click="{handleToggle}"
   >
     <p class="text-start">{text}</p>
-    <Toggle isChecked="{Boolean($settingsStore[settingKey])}" />
+    <Switch checked="{Boolean($settingsStore[settingKey])}">{text}</Switch>
   </button>
 {/if}

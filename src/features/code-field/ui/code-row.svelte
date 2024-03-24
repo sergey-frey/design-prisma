@@ -3,7 +3,7 @@
   import { noticeStore } from "@/entities/notice";
   import { settingsStore } from "@/entities/settings";
   import { content } from "@/shared/content";
-  import { copyToClipboard, pipe } from "@/shared/lib";
+  import { copyToClipboard } from "@/shared/utils";
   import { twJoin } from "tailwind-merge";
   import CodeRuleValue from "./code-rule-value.svelte";
   import CodeRule from "./code-rule.svelte";
@@ -61,8 +61,8 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   class="{twJoin(
-    'cursor-pointer rounded-[4px]',
-    'hover:bg-indigo-200 px-2 py-0.5'
+    'cursor-pointer rounded-e-[4px] px-2 py-0.5 border-l-2 border-transparent',
+    'hover:bg-slate-50 hover:border-l-black'
   )}"
   on:contextmenu="{handleRowOnContextmenu}"
 >

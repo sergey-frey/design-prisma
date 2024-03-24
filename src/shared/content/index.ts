@@ -47,9 +47,7 @@ type LangContent = {
 			};
 			feedback: {
 				aboutEmail: string;
-				email: string;
 				aboutTg: string;
-				tg: string;
 			};
 		};
 	};
@@ -113,9 +111,8 @@ export const content: Record<Lang, LangContent> = {
 				feedback: {
 					aboutEmail:
 						"Вопросы и предложения по развитию плагина принимаются на",
-					email: "3str.webdev@gmail.com",
-					aboutTg: "Так же, вы можете написать мне в Telegram",
-					tg: "@serg_3str",
+					aboutTg:
+						"Так же, новости о плагине и прочих моих разработках в группе Telegram",
 				},
 			},
 		},
@@ -177,9 +174,7 @@ export const content: Record<Lang, LangContent> = {
 				feedback: {
 					aboutEmail:
 						"You can write me your questions and suggestions for development by",
-					email: "3str.webdev@gmail.com",
 					aboutTg: "Also you can contact me in Telegram",
-					tg: "@serg_3str",
 				},
 			},
 		},

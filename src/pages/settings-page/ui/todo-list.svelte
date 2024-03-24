@@ -22,13 +22,13 @@
     {/each}
   </ul>
 
-  <p class="text-sm py-2 px-4 bg-[#efecf4] rounded-[5px]">
+  <p class="text-sm py-2 px-4 bg-muted rounded-md">
     {feedbackAbout}
     <span class="text-indigo-600">{CONTACTS.email} 🎉</span><br />
     {feedbackTg}:
     <a href="{CONTACTS.tg.href}" target="_blank">
       <span class="text-indigo-600 hover:font-semibold">
-        {CONTACTS.tg.label}
+        {@html CONTACTS.tg.label}
       </span>
     </a>
   </p>
