@@ -1,1 +1,2 @@
-export { settingsStore, initSettingsStore } from "./model/settings-store";
+export { settingsStore } from "./model/settings-store";
+

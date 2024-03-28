@@ -1,8 +1,8 @@
-import {
-  type GetSettingsResponse,
-  type MessageToPlugin,
-  type Settings,
-  Unit,
+import { INIT_SETTINGS } from "@/shared/constants";
+import type {
+  GetSettingsResponse,
+  MessageToPlugin,
+  Settings,
 } from "@/shared/types";
 import { logger, msgToPluginObserver, postMessageToUI } from "@/shared/utils";
 
@@ -14,19 +14,7 @@ type PluginDataValue = PluginData[keyof PluginData];
 
 export class PluginDataModule {
 	initData: PluginData = {
-		settings: {
-			hideDesignSystem: false,
-			lang: "ru",
-			units: Unit.px,
-			nav: "DESIGN",
-			size: {
-				width: 400,
-				height: 700,
-			},
-			disableDesignVariables: false,
-			disableCodeComments: true,
-			preprocessor: "css",
-		},
+		settings: INIT_SETTINGS,
 	};
 
 	public init() {

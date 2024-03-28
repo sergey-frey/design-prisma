@@ -1,14 +1,15 @@
 <script lang="ts">
-  import { initSettingsStore, settingsStore } from "@/entities/settings";
   import { Button } from "$lib/components/ui/button";
+  import { settingsStore } from "@/entities/settings";
+  import { INIT_SETTINGS } from "@/shared/constants";
   import { content } from "@/shared/content";
-  import { postMessageToPlugin } from "@/shared/utils";
   import type { SetSettingsQuery } from "@/shared/types";
+  import { postMessageToPlugin } from "@/shared/utils";
 
   $: settingContent = content[$settingsStore.lang].pages.SETTINGS.resetSize;
 
   const handleClick = () => {
-    $settingsStore.size = initSettingsStore.size;
+    $settingsStore.size = INIT_SETTINGS.size;
 
     postMessageToPlugin<SetSettingsQuery>({
       action: "set-settings-query",

@@ -17,4 +17,5 @@ export type Settings = {
 	disableDesignVariables: boolean;
 	disableCodeComments: boolean;
 	preprocessor: CSSPreprocessor;
+	showWelcomeMessage: boolean;
 };

@@ -12,12 +12,10 @@
     MessageToUIEvent,
   } from "@/shared/types";
   import { msgToUIObserver, postMessageToPlugin } from "@/shared/utils";
-  import { Donate } from "@/widgets/donate";
   import { Navigation } from "@/widgets/navigation";
   import Preloader from "@/widgets/preloader/ui/preloader.svelte";
+  import { WelcomeMessage } from "@/widgets/welcome-message";
   import { onDestroy, onMount } from "svelte";
-
-  const isDev = process.env.NODE_ENV === "development";
 
   let isLoading = true;
 
@@ -60,10 +58,7 @@
     <DesignPage slot="design-page" />
     <SettingsPage slot="settings-page" />
   </Navigation>
-
-  {#if !isDev}
-    <Donate />
-  {/if}
+  <WelcomeMessage />
 </main>
 
 {#if isLoading}

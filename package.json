@@ -31,7 +31,7 @@
     "vite-plugin-singlefile": "^0.13.5"
   },
   "dependencies": {
-    "bits-ui": "^0.20.0",
+    "bits-ui": "^0.20.1",
     "clsx": "^2.1.0",
     "prettier": "^3.2.4",
     "svelte-radix": "^1.1.0",
