@@ -1,5 +1,5 @@
 .hljs {
-  @apply rounded-md;
+  @apply rounded-sm !bg-muted;
 }
 
 .color-with-preview {
