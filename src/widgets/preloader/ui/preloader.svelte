@@ -5,7 +5,7 @@
 
 <article
   transition:fade="{{ duration: 200 }}"
-  class="fixed top-0 left-0 w-screen h-screen grid place-content-center bg-white"
+  class="fixed top-0 left-0 w-screen h-screen grid place-content-center bg-white z-[99999]"
 >
   <span
     class="{twJoin(
