@@ -1,18 +1,5 @@
 import type { Mutable } from "@/shared/types/index";
 import type { NodeBlock, NodeCSS } from "../types";
-import { logger } from "./logger";
-
-export const normalizeSeparatedStyle = (
-	style: string | NodeCSS,
-): number[] | undefined => {
-	if (typeof style !== "string") return undefined;
-	try {
-		return style.split(" ").map((v) => Number(v.replace("px", "")));
-	} catch (err) {
-		logger.log("normalizeSeparatedStyle ERROR:", err);
-		return undefined;
-	}
-};
 
 export const formatStyles = (styles: NodeCSS | NodeBlock): string => {
 	let res = "";
@@ -29,12 +16,18 @@ export const formatStyles = (styles: NodeCSS | NodeBlock): string => {
 };
 
 export const paintStyleNameToCSSVar = (styleName: string): string => {
-	return `--${styleName
+	if (styleName === "") {
+		return "--<empty>";
+	}
+
+	const transformedStyleName = styleName
 		.split("/")
 		.map((p) => p.toLowerCase())
 		.join("-")
 		.split(" ")
-		.join("-")}`;
+		.join("-");
+
+	return `--${transformedStyleName}`;
 };
 
 export const figmaRGBToHEX = (color: Mutable<RGB>, opacity: number): string => {
