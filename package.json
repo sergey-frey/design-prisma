@@ -10,7 +10,8 @@
     "build:ui": "vite build --watch=false --config vite.config.ui.ts",
     "build:plugin": "vite build --watch=false --config vite.config.plugin.ts",
     "watch:ui": "vite build --config vite.config.ui.ts",
-    "watch:plugin": "vite build --config vite.config.plugin.ts"
+    "watch:plugin": "vite build --config vite.config.plugin.ts",
+    "test": "vitest"
   },
   "devDependencies": {
     "@figma/plugin-typings": "^1.85.0",
@@ -28,7 +29,8 @@
     "tslib": "^2.6.2",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
-    "vite-plugin-singlefile": "^0.13.5"
+    "vite-plugin-singlefile": "^0.13.5",
+    "vitest": "^1.6.0"
   },
   "dependencies": {
     "bits-ui": "^0.20.1",
