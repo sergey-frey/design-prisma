@@ -67,7 +67,7 @@ export const content: Record<Lang, LangContent> = {
 			},
 		},
 		codeField: {
-			rmb: "пкм",
+			rmb: "доступно контектное меню (пкм)",
 		},
 		pages: {
 			DESIGN: {

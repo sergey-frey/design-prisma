@@ -1,60 +1,61 @@
 <script lang="ts">
-  import { logger } from "@/shared/utils";
-  import { Menu, MenuItem, MenuItems } from "@rgossiaux/svelte-headlessui";
-  import { scale } from "svelte/transition";
-  import { twJoin } from "tailwind-merge";
-  import { contextMenuStore } from "..";
+	import { logger } from "@/shared/utils";
+	import { scale } from "svelte/transition";
+	import { twJoin } from "tailwind-merge";
+	import { contextMenuStore } from "..";
 
-  const handleOptionClick = (cb: () => void) => {
-    return () => {
-      cb();
-      $contextMenuStore.isOpen = false;
-    };
-  };
+	const handleOptionClick = (cb: () => void) => {
+		return () => {
+			cb();
+			$contextMenuStore.isOpen = false;
+		};
+	};
 
-  let menu = { h: 0, w: 0 };
-  let pos = { x: 0, y: 0 };
+	let menu = { h: 0, w: 0 };
+	let pos = { x: 0, y: 0 };
 
-  const getContextMenuDimension = (node: HTMLDivElement) => {
-    let height = node.offsetHeight;
-    let width = node.offsetWidth;
+	const getContextMenuDimension = (node: HTMLDivElement) => {
+		let height = node.offsetHeight;
+		let width = node.offsetWidth;
 
-    menu = {
-      h: height,
-      w: width,
-    };
+		menu = {
+			h: height,
+			w: width,
+		};
 
-    getMenuPosition({});
-  };
+		getMenuPosition({});
+	};
 
-  const getMenuPosition = (a: any) => {
-    if (menu.w === 0 || menu.h === 0) return;
+	const getMenuPosition = (a: any) => {
+		if (menu.w === 0 || menu.h === 0) return;
 
-    const browser = {
-      w: window.innerWidth,
-      h: window.innerHeight,
-    };
+		const browser = {
+			w: window.innerWidth,
+			h: window.innerHeight,
+		};
 
-    pos = {
-      x: $contextMenuStore.x,
-      y: $contextMenuStore.y,
-    };
+		pos = {
+			x: $contextMenuStore.x,
+			y: $contextMenuStore.y,
+		};
 
-    if (browser.h - pos.y < menu.h) {
-      pos.y = pos.y - menu.h;
-    }
-    if (browser.w - pos.x < menu.w) {
-      pos.x = pos.x - menu.w;
-    }
+		if (browser.h - pos.y < menu.h) {
+			pos.y = pos.y - menu.h;
+		}
+		if (browser.w - pos.x < menu.w) {
+			pos.x = pos.x - menu.w;
+		}
 
-    logger.log(menu);
+		logger.log(menu);
 
-    return pos;
-  };
+		return pos;
+	};
 
-  $: getMenuPosition($contextMenuStore);
+	$: getMenuPosition($contextMenuStore);
 </script>
 
+<svelte:window on:click={() => ($contextMenuStore.isOpen = false)} />
+<!-- 
 <Menu>
   {#if $contextMenuStore.isOpen}
     <div
@@ -86,4 +87,4 @@
       </MenuItems>
     </div>
   {/if}
-</Menu>
+</Menu> -->
