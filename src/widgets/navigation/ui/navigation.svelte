@@ -1,41 +1,57 @@
 <script lang="ts">
-	import * as Tabs from "$lib/components/ui/tabs/index.js";
+	import {
+		Tabs,
+		TabsContent,
+		TabsList,
+		TabsTrigger,
+	} from "$lib/components/ui/tabs";
 	import { settingsStore } from "@/entities/settings";
 	import { NAVIGATION } from "@/shared/constants";
 	import { content } from "@/shared/content";
 	import type { NavPage, SetSettingsQuery } from "@/shared/types";
 	import { postMessageToPlugin } from "@/shared/utils";
+	import type { Snippet } from "svelte";
+
+	type NavigationProps = {
+		className?: string;
+		stylesPage: Snippet;
+		designPage: Snippet;
+		settingsPage: Snippet;
+	};
+
+	let { stylesPage, designPage, settingsPage, className }: NavigationProps =
+		$props();
 
 	const keys = Object.keys(NAVIGATION) as Array<NavPage>;
 
-	const handleClick = (src: NavPage) => {
+	const handleClick = $derived((src: NavPage) => {
 		$settingsStore.nav = src;
 
 		postMessageToPlugin<SetSettingsQuery>({
 			action: "set-settings-query",
 			settings: $settingsStore,
 		});
-	};
+	});
 </script>
 
-<Tabs.Root {...$$restProps} value={$settingsStore.nav}>
-	<Tabs.List
+<Tabs value={$settingsStore.nav} className={[className]}>
+	<TabsList
 		class="grid w-full sticky top-1 z-50 shadow-md"
 		style={`grid-template-columns: repeat(${keys.length}, minmax(0, 1fr));`}
 	>
 		{#each keys as key}
-			<Tabs.Trigger value={key} on:click={() => handleClick(key)}>
+			<TabsTrigger value={key} onclick={() => handleClick(key)}>
 				{content[$settingsStore.lang].nav[key]}
-			</Tabs.Trigger>
+			</TabsTrigger>
 		{/each}
-	</Tabs.List>
-	<Tabs.Content value={"STYLES"}>
-		<slot name="styles-page" />
-	</Tabs.Content>
-	<Tabs.Content value={"DESIGN"}>
-		<slot name="design-page" />
-	</Tabs.Content>
-	<Tabs.Content value={"SETTINGS"}>
-		<slot name="settings-page" />
-	</Tabs.Content>
-</Tabs.Root>
+	</TabsList>
+	<TabsContent value={"STYLES"}>
+		{@render stylesPage?.()}
+	</TabsContent>
+	<TabsContent value={"DESIGN"}>
+		{@render designPage?.()}
+	</TabsContent>
+	<TabsContent value={"SETTINGS"}>
+		{@render settingsPage?.()}
+	</TabsContent>
+</Tabs>

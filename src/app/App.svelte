@@ -50,10 +50,16 @@
 </script>
 
 <main class="flex flex-col h-full px-2 pt-1">
-	<Navigation class="grow">
-		<StylesPage slot="styles-page" />
-		<DesignPage slot="design-page" />
-		<SettingsPage slot="settings-page" />
+	<Navigation className="grow">
+		{#snippet stylesPage()}
+			<StylesPage />
+		{/snippet}
+		{#snippet designPage()}
+			<DesignPage />
+		{/snippet}
+		{#snippet settingsPage()}
+			<SettingsPage />
+		{/snippet}
 	</Navigation>
 </main>
 
