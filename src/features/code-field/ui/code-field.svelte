@@ -15,14 +15,16 @@
 	import "../styles/index.css";
 	import CodeHighlight from "./code-highlight.svelte";
 	import CopyButton from "./copy-button.svelte";
+	import type { Snippet } from "svelte";
 
 	type Props = HTMLAttributes<HTMLDivElement> & {
 		code: NodeCSS | string;
 		isSVG?: boolean;
 		rmbNotice?: boolean;
+		fieldTitle?: Snippet;
 	};
 
-	let { isSVG, rmbNotice, code }: Props = $props();
+	let { isSVG, rmbNotice, code, fieldTitle, ...props }: Props = $props();
 
 	const getHighlightProps = async (code: string | NodeCSS) => {
 		if (isSVG && typeof code === "string") {
@@ -49,9 +51,9 @@
 </svelte:head>
 
 {#if code}
-	<div>
+	<div {...props}>
 		<div class="flex items-center justify-between">
-			<slot name="title" />
+			{@render fieldTitle?.()}
 		</div>
 		<div class="relative">
 			{#if typeof code === "string"}
@@ -74,7 +76,11 @@
 		</div>
 		{#if rmbNotice}
 			<span
-				class="text-xs px-2 flex items-center gap-1 bg-slate-200 rounded-b-sm py-1"
+				class={[
+					"text-xs px-2 flex items-center gap-1",
+					"bg-slate-200 rounded-b-sm py-1",
+					"select-none",
+				]}
 			>
 				{content[$settingsStore.lang].codeField.rmb}
 				<RmbIcon class="w-3 h-3" />

@@ -22,49 +22,46 @@
 		},
 	];
 
-	const selectValue = $state(langsList[0]);
+	let selectValue = $state(langsList[0].value as Lang);
 
 	const triggerContent = $derived(
-		langsList.find((lang) => lang.value === selectValue.value)?.label ??
-			langsList[0].label
+		langsList.find((lang) => lang.value === selectValue)?.label
 	);
 
-	const text = $derived(
-		content[$settingsStore.lang].pages.SETTINGS.switchLanguage
-	);
-
-	const handleSelect = $derived((lang: Lang) => {
-		$settingsStore.lang = lang;
+	const handleValueChange = (value: string) => {
+		$settingsStore.lang = value as Lang;
 
 		postMessageToPlugin<SetSettingsQuery>({
 			action: "set-settings-query",
 			settings: $settingsStore,
 		});
-	});
+	};
 
-	const handleSelectedChange = $derived((opt: any) => {
-		if (!opt?.value) {
-			return;
-		}
-
-		handleSelect(opt.value);
-	});
+	const text = $derived(
+		content[$settingsStore.lang].pages.SETTINGS.switchLanguage
+	);
 </script>
 
 <div class="flex items-center gap-3 justify-between">
 	<p>{text}</p>
 
-	<Select onSelectedChange={handleSelectedChange}>
+	<Select
+		type="single"
+		name="lang"
+		bind:value={selectValue}
+		onValueChange={handleValueChange}
+	>
 		<SelectTrigger class="w-fit flex items-center gap-2">
-			<FlagIcon class="w-4" country={$settingsStore.lang} />
+			<FlagIcon class="w-4" country={selectValue} />
 			{triggerContent}
 		</SelectTrigger>
 		<SelectContent>
-			{#each langsList as { label, value }}
-				<SelectItem {value} class="flex items-center gap-2">
+			{#each langsList as lang (lang.value)}
+				<!-- <SelectItem {value} {label} class="flex items-center gap-2">
 					<FlagIcon class="min-w-4 max-w-[16px]" country={value as Lang} />
 					{label}
-				</SelectItem>
+				</SelectItem> -->
+				<SelectItem value={lang.value} label={lang.label} />
 			{/each}
 		</SelectContent>
 	</Select>
