@@ -3,6 +3,12 @@
 	import { scale } from "svelte/transition";
 	import { twJoin } from "tailwind-merge";
 	import { contextMenuStore } from "..";
+	import {
+		DropdownMenu,
+		DropdownMenuTrigger,
+		DropdownMenuContent,
+		DropdownMenuItem,
+	} from "@/shared/lib/components/ui/dropdown-menu";
 
 	const handleOptionClick = (cb: () => void) => {
 		return () => {
@@ -55,6 +61,34 @@
 </script>
 
 <svelte:window on:click={() => ($contextMenuStore.isOpen = false)} />
+
+<DropdownMenu open={true}>
+	<DropdownMenuTrigger />
+
+	{#if $contextMenuStore.isOpen}
+		<div
+			transition:scale={{ duration: 150, opacity: 0 }}
+			use:getContextMenuDimension
+			class={twJoin("fixed")}
+			style="top: {pos.y + 1}px; left: {pos.x + 1}px"
+		>
+			<DropdownMenuContent>
+				{#each $contextMenuStore.options as option}
+					<DropdownMenuItem
+						class={twJoin(
+							"px-4 py-1 whitespace-nowrap transition-colors",
+							"cursor-pointer text-sm rounded-sm",
+							"hover:bg-accent"
+						)}
+						on:click={handleOptionClick(option.fn)}
+					>
+						{option.label}
+					</DropdownMenuItem>
+				{/each}
+			</DropdownMenuContent>
+		</div>
+	{/if}
+</DropdownMenu>
 <!-- 
 <Menu>
   {#if $contextMenuStore.isOpen}

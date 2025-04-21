@@ -14,7 +14,6 @@
 	import { msgToUIObserver, postMessageToPlugin } from "@/shared/utils";
 	import { Navigation } from "@/widgets/navigation";
 	import Preloader from "@/widgets/preloader/ui/preloader.svelte";
-	import { WelcomeMessage } from "@/widgets/welcome-message";
 	import { onDestroy, onMount } from "svelte";
 
 	let isLoading = $state(true);
@@ -56,7 +55,6 @@
 		<DesignPage slot="design-page" />
 		<SettingsPage slot="settings-page" />
 	</Navigation>
-	<WelcomeMessage />
 </main>
 
 {#if isLoading}

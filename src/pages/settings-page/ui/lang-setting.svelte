@@ -1,63 +1,71 @@
 <script lang="ts">
-  import * as Select from "$lib/components/ui/select";
-  import { settingsStore } from "@/entities/settings";
-  import { content } from "@/shared/content";
-  import type { Lang, SetSettingsQuery } from "@/shared/types";
-  import { FlagIcon } from "@/shared/ui/icons";
-  import { postMessageToPlugin } from "@/shared/utils";
-  import type { Selected } from "bits-ui";
+	import {
+		Select,
+		SelectContent,
+		SelectItem,
+		SelectTrigger,
+	} from "$lib/components/ui/select/index";
+	import { settingsStore } from "@/entities/settings";
+	import { content } from "@/shared/content";
+	import type { Lang, SetSettingsQuery } from "@/shared/types";
+	import { FlagIcon } from "@/shared/ui/icons";
+	import { postMessageToPlugin } from "@/shared/utils";
 
-  const langsList: Selected<Lang>[] = [
-    {
-      label: "Русский",
-      value: "ru",
-    },
-    {
-      label: "English",
-      value: "en",
-    },
-  ];
+	const langsList = [
+		{
+			label: "Русский",
+			value: "ru",
+		},
+		{
+			label: "English",
+			value: "en",
+		},
+	];
 
-  $: text = content[$settingsStore.lang].pages.SETTINGS.switchLanguage;
+	const selectValue = $state(langsList[0]);
 
-  const handleSelect = (lang: Lang) => {
-    $settingsStore.lang = lang;
+	const triggerContent = $derived(
+		langsList.find((lang) => lang.value === selectValue.value)?.label ??
+			langsList[0].label
+	);
 
-    postMessageToPlugin<SetSettingsQuery>({
-      action: "set-settings-query",
-      settings: $settingsStore,
-    });
-  };
+	const text = $derived(
+		content[$settingsStore.lang].pages.SETTINGS.switchLanguage
+	);
 
-  const handleSelectedChange = (
-    opt: Selected<Lang | undefined> | undefined
-  ) => {
-    if (!opt?.value) {
-      return;
-    }
+	const handleSelect = $derived((lang: Lang) => {
+		$settingsStore.lang = lang;
 
-    handleSelect(opt.value);
-  };
+		postMessageToPlugin<SetSettingsQuery>({
+			action: "set-settings-query",
+			settings: $settingsStore,
+		});
+	});
+
+	const handleSelectedChange = $derived((opt: any) => {
+		if (!opt?.value) {
+			return;
+		}
+
+		handleSelect(opt.value);
+	});
 </script>
 
 <div class="flex items-center gap-3 justify-between">
-  <p>{text}</p>
+	<p>{text}</p>
 
-  <Select.Root onSelectedChange="{handleSelectedChange}">
-    <Select.Trigger class="w-fit flex items-center gap-2">
-      <FlagIcon class="w-4" country="{$settingsStore.lang}" />
-      <Select.Value
-        placeholder="{langsList.find((o) => o.value === $settingsStore.lang)
-          ?.label}"
-      />
-    </Select.Trigger>
-    <Select.Content>
-      {#each langsList as { label, value }}
-        <Select.Item {value} class="flex items-center gap-2">
-          <FlagIcon class="min-w-4 max-w-[16px]" country="{value}" />
-          {label}
-        </Select.Item>
-      {/each}
-    </Select.Content>
-  </Select.Root>
+	<Select onSelectedChange={handleSelectedChange}>
+		<SelectTrigger class="w-fit flex items-center gap-2">
+			<FlagIcon class="w-4" country={$settingsStore.lang} />
+			{triggerContent}
+		</SelectTrigger>
+		<SelectContent>
+			{#each langsList as { label, value }}
+				<SelectItem {value} class="flex items-center gap-2">
+					<FlagIcon class="min-w-4 max-w-[16px]" country={value as Lang} />
+					{label}
+				</SelectItem>
+			{/each}
+		</SelectContent>
+	</Select>
 </div>
