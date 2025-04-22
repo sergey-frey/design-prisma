@@ -22,10 +22,8 @@
 		},
 	];
 
-	let selectValue = $state(langsList[0].value as Lang);
-
 	const triggerContent = $derived(
-		langsList.find((lang) => lang.value === selectValue)?.label
+		langsList.find((lang) => lang.value === $settingsStore.lang)?.label
 	);
 
 	const handleValueChange = (value: string) => {
@@ -45,14 +43,9 @@
 <div class="flex items-center gap-3 justify-between">
 	<p>{text}</p>
 
-	<Select
-		type="single"
-		name="lang"
-		bind:value={selectValue}
-		onValueChange={handleValueChange}
-	>
+	<Select type="single" name="lang" onValueChange={handleValueChange}>
 		<SelectTrigger class="w-fit flex items-center gap-2">
-			<FlagIcon class="w-4" country={selectValue} />
+			<FlagIcon class="w-4" country={$settingsStore.lang} />
 			{triggerContent}
 		</SelectTrigger>
 		<SelectContent>

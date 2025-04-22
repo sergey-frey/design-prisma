@@ -1,5 +1,10 @@
 <script lang="ts">
-	import * as Select from "$lib/components/ui/select";
+	import {
+		Select,
+		SelectContent,
+		SelectTrigger,
+		SelectItem,
+	} from "$lib/components/ui/select";
 	import { settingsStore } from "@/entities/settings";
 	import { content } from "@/shared/content";
 	import { Unit, type SetSettingsQuery } from "@/shared/types";
@@ -16,39 +21,31 @@
 		},
 	];
 
-	$: text = content[$settingsStore.lang].pages.SETTINGS.switchUnits;
+	const text = $derived(
+		content[$settingsStore.lang].pages.SETTINGS.switchUnits
+	);
 
-	const handleSelect = (units: Unit) => {
-		$settingsStore.units = units;
+	const handleValueChange = (units: string) => {
+		$settingsStore.units = units as Unit;
 
 		postMessageToPlugin<SetSettingsQuery>({
 			action: "set-settings-query",
 			settings: $settingsStore,
 		});
 	};
-
-	const handleSelectedChange = (opt: any) => {
-		if (!opt?.value) {
-			return;
-		}
-
-		handleSelect(opt.value);
-	};
 </script>
 
 <div class="flex items-center gap-3 justify-between">
 	<p>{text}</p>
 
-	<Select.Root onSelectedChange={handleSelectedChange}>
-		<Select.Trigger class="w-[70px]">
+	<Select type="single" onValueChange={handleValueChange}>
+		<SelectTrigger class="w-[70px]">
 			{$settingsStore.units}
-		</Select.Trigger>
-		<Select.Content>
-			{#each unitsList as { label, value }}
-				<Select.Item {value}>
-					{label}
-				</Select.Item>
+		</SelectTrigger>
+		<SelectContent>
+			{#each unitsList as units (units.value)}
+				<SelectItem value={units.value} label={units.label} />
 			{/each}
-		</Select.Content>
-	</Select.Root>
+		</SelectContent>
+	</Select>
 </div>

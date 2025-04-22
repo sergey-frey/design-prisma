@@ -1,14 +1,7 @@
 <script lang="ts">
-	import { logger } from "@/shared/utils";
-	import { scale } from "svelte/transition";
 	import { twJoin } from "tailwind-merge";
 	import { contextMenuStore } from "..";
-	import {
-		DropdownMenu,
-		DropdownMenuTrigger,
-		DropdownMenuContent,
-		DropdownMenuItem,
-	} from "@/shared/lib/components/ui/dropdown-menu";
+	import { logger } from "@/shared/utils";
 
 	const handleOptionClick = (cb: () => void) => {
 		return () => {
@@ -17,8 +10,8 @@
 		};
 	};
 
-	let menu = { h: 0, w: 0 };
-	let pos = { x: 0, y: 0 };
+	let menu = $state({ h: 0, w: 0 });
+	let pos = $state({ x: 0, y: 0 });
 
 	const getContextMenuDimension = (node: HTMLDivElement) => {
 		let height = node.offsetHeight;
@@ -29,96 +22,76 @@
 			w: width,
 		};
 
-		getMenuPosition({});
+		pos = getMenuPosition({
+			clickX: $contextMenuStore.x,
+			clickY: $contextMenuStore.y,
+		});
 	};
 
-	const getMenuPosition = (a: any) => {
-		if (menu.w === 0 || menu.h === 0) return;
+	const getMenuPosition = ({
+		clickX,
+		clickY,
+	}: {
+		clickX: number;
+		clickY: number;
+	}) => {
+		logger.log("getMenuPosition", clickX, clickY);
+
+		if (menu.w === 0 || menu.h === 0) return { x: 0, y: 0 };
 
 		const browser = {
 			w: window.innerWidth,
 			h: window.innerHeight,
 		};
 
-		pos = {
-			x: $contextMenuStore.x,
-			y: $contextMenuStore.y,
+		const newPos = {
+			x: clickX,
+			y: clickY,
 		};
 
-		if (browser.h - pos.y < menu.h) {
-			pos.y = pos.y - menu.h;
+		if (browser.h - newPos.y < menu.h) {
+			newPos.y = newPos.y - menu.h;
 		}
-		if (browser.w - pos.x < menu.w) {
-			pos.x = pos.x - menu.w;
+		if (browser.w - newPos.x < menu.w) {
+			newPos.x = newPos.x - menu.w;
 		}
 
-		logger.log(menu);
-
-		return pos;
+		return newPos;
 	};
 
-	$: getMenuPosition($contextMenuStore);
+	$effect(() => {
+		pos = getMenuPosition({
+			clickX: $contextMenuStore.x,
+			clickY: $contextMenuStore.y,
+		});
+	});
 </script>
 
 <svelte:window on:click={() => ($contextMenuStore.isOpen = false)} />
 
-<DropdownMenu open={true}>
-	<DropdownMenuTrigger />
-
-	{#if $contextMenuStore.isOpen}
-		<div
-			transition:scale={{ duration: 150, opacity: 0 }}
-			use:getContextMenuDimension
-			class={twJoin("fixed")}
-			style="top: {pos.y + 1}px; left: {pos.x + 1}px"
-		>
-			<DropdownMenuContent>
-				{#each $contextMenuStore.options as option}
-					<DropdownMenuItem
-						class={twJoin(
+{#if $contextMenuStore.isOpen}
+	<div
+		class={twJoin("fixed menu-dp")}
+		style="top: {pos.y + 1}px; left: {pos.x + 1}px"
+		use:getContextMenuDimension
+	>
+		<ul class={["bg-background rounded-md p-1", "flex flex-col", "shadow-md"]}>
+			{#each $contextMenuStore.options as option}
+				<li class="w-full">
+					<button
+						type={"button"}
+						class={[
+							"w-full",
 							"px-4 py-1 whitespace-nowrap transition-colors",
-							"cursor-pointer text-sm rounded-sm",
-							"hover:bg-accent"
-						)}
-						on:click={handleOptionClick(option.fn)}
+							"cursor-pointer text-sm rounded-sm text-start",
+							"hover:bg-accent",
+						]}
+						onclick={handleOptionClick(option.fn)}
 					>
 						{option.label}
-					</DropdownMenuItem>
-				{/each}
-			</DropdownMenuContent>
-		</div>
-	{/if}
-</DropdownMenu>
-<!-- 
-<Menu>
-  {#if $contextMenuStore.isOpen}
-    <div
-      transition:scale="{{ duration: 150, opacity: 0 }}"
-      use:getContextMenuDimension
-      class="{twJoin('fixed')}"
-      style="top: {pos.y + 1}px; left: {pos.x + 1}px"
-    >
-      <MenuItems
-        static
-        class="{twJoin(
-          'relative',
-          'flex flex-col overflow-hidden',
-          'bg-popover rounded-md shadow-lg p-1'
-        )}"
-      >
-        {#each $contextMenuStore.options as option}
-          <MenuItem
-            class="{twJoin(
-              'px-4 py-1 whitespace-nowrap transition-colors',
-              'cursor-pointer text-sm rounded-sm',
-              'hover:bg-accent'
-            )}"
-            on:click="{handleOptionClick(option.fn)}"
-          >
-            {option.label}
-          </MenuItem>
-        {/each}
-      </MenuItems>
-    </div>
-  {/if}
-</Menu> -->
+					</button>
+				</li>
+			{/each}
+		</ul>
+	</div>
+{/if}
