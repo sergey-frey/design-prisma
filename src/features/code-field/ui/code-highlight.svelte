@@ -1,14 +1,17 @@
 <script lang="ts">
-	import * as ContextMenu from "$lib/components/ui/context-menu";
 	import type { NodeCSS } from "@/shared/types";
+	import clsx from "clsx";
 	import { twJoin } from "tailwind-merge";
 	import CodeRow from "./code-row.svelte";
-	import clsx from "clsx";
 
-	export let code: NodeCSS;
-	export let className: string = "";
+	type CodeHighlightProps = {
+		code: NodeCSS;
+		className?: string;
+	};
 
-	$: rules = Object.keys(code) as Array<keyof NodeCSS>;
+	let { code, className }: CodeHighlightProps = $props();
+
+	const rules = $derived(Object.keys(code) as Array<keyof NodeCSS>);
 </script>
 
 <div class={clsx("rounded-sm overflow-hidden", className)}>

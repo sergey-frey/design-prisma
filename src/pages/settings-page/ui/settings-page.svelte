@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Separator } from "@/shared/lib/components/ui/separator";
 	import { PageWrapper } from "@/widgets/page-wrapper";
+	import AboutProjectSection from "./about-project-section.svelte";
 	import ResetPluginData from "./dev-settings/reset-plugin-data.svelte";
 	import LangSetting from "./lang-setting.svelte";
 	import PreprocessorSetting from "./preprocessor-setting.svelte";
@@ -12,7 +13,7 @@
 </script>
 
 <PageWrapper page="SETTINGS">
-	<section class="grow flex flex-col gap-4">
+	<section class="grow flex flex-col gap-4 pb-4">
 		<div class="grow flex flex-col gap-4">
 			<LangSetting />
 			<UnitsSetting />
@@ -34,6 +35,7 @@
 			{/if}
 		</div>
 		<Separator />
+		<AboutProjectSection />
 		<!-- <TodoList /> -->
 	</section>
 </PageWrapper>

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { twJoin } from "tailwind-merge";
 	import { contextMenuStore } from "..";
-	import { logger } from "@/shared/utils";
 
 	const handleOptionClick = (cb: () => void) => {
 		return () => {
@@ -35,8 +34,6 @@
 		clickX: number;
 		clickY: number;
 	}) => {
-		logger.log("getMenuPosition", clickX, clickY);
-
 		if (menu.w === 0 || menu.h === 0) return { x: 0, y: 0 };
 
 		const browser = {

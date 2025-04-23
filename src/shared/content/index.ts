@@ -130,7 +130,7 @@ export const content: Record<Lang, LangContent> = {
 			},
 		},
 		codeField: {
-			rmb: "rmb",
+			rmb: "available context menu (rmb)",
 		},
 		pages: {
 			DESIGN: {

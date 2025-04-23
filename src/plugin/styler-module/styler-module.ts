@@ -2,11 +2,11 @@ import {
 	handleGetDesignLocalPaintStylesQuery,
 	handleGetDesignLocalTextStylesQuery,
 } from "@/plugin/design-styles-module";
-import { msgToPluginObserver, postMessageToUI } from "@/shared/utils";
 import type {
 	MessageToPlugin,
 	SelectedNodeChangeMessage,
 } from "@/shared/types";
+import { msgToPluginObserver, postMessageToUI } from "@/shared/utils";
 import {
 	getNodeBlock,
 	getNodeCSS,
@@ -54,11 +54,11 @@ export class StylerModule {
 	private initMessageToPluginObserver() {
 		msgToPluginObserver.subscribe(
 			handleGetDesignLocalTextStylesQuery,
-			"get-design-local-text-styles-query",
+			"get-design-local-text-styles-query"
 		);
 		msgToPluginObserver.subscribe(
 			handleGetDesignLocalPaintStylesQuery,
-			"get-design-local-paint-styles-query",
+			"get-design-local-paint-styles-query"
 		);
 
 		figma.ui.onmessage = (msg: MessageToPlugin) => {
