@@ -76,6 +76,8 @@ export class StylerModule {
 	}
 
 	private async handleSelectedNodeChange() {
+		if (!this.selectedNode) return;
+
 		postMessageToUI<SelectedNodeChangeMessage>({
 			action: "selected-node-change",
 			nodeId: this.selectedNode.id,

@@ -1,4 +1,4 @@
-import type { Mutable } from "@/shared/types/index";
+import { Unit, type Mutable } from "@/shared/types";
 import type { NodeBlock, NodeCSS } from "../types";
 import { logger } from "./logger";
 
@@ -73,4 +73,13 @@ export const figmaGradientToCSS = async (
 	rect.remove();
 
 	return bgCSS;
+};
+
+export const convertValueByUnits = (value: number, units: Unit) => {
+	switch (units) {
+		case Unit.rem:
+			return pxToRem(value, 16);
+		default:
+			return value;
+	}
 };

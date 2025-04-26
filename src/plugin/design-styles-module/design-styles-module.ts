@@ -3,17 +3,25 @@ import { paintStyleNameToCSSVar } from "@/shared/utils";
 import { getPaintStyleValue } from "../code-module";
 
 export const getLocalTextStyles = async (): Promise<LocalTextStyle[]> => {
-	const textStyles = await figma.getLocalTextStylesAsync();
+	const figmaTextStyles = await figma.getLocalTextStylesAsync();
+	const textStyles = [];
 
-	return textStyles.map((s) => ({
-		fontFamily: s.fontName.family,
-		fontWeight: s.fontName.style,
-		fontSize: s.fontSize,
-		amountOfConsumers: s.consumers.length,
-	}));
+	for (const figmaTextStyle of figmaTextStyles) {
+		const figmaTextStyleConsumers =
+			await figmaTextStyle.getStyleConsumersAsync();
+		const amountOfConsumers = figmaTextStyleConsumers.length;
+
+		textStyles.push({
+			fontFamily: figmaTextStyle.fontName.family,
+			fontWeight: figmaTextStyle.fontName.style,
+			fontSize: figmaTextStyle.fontSize,
+			amountOfConsumers,
+		});
+	}
+
+	return textStyles;
 };
 
-// TODO: add gradient and other paints
 export const getLocalPaintStyles = async (): Promise<NodeCSS> => {
 	const paintStyles = await figma.getLocalPaintStylesAsync();
 
