@@ -1,4 +1,3 @@
-import { logger } from "@/shared/utils";
 import { noticeStore } from "./notice-store";
 
 type NotificationOptions = {
@@ -7,7 +6,7 @@ type NotificationOptions = {
 
 export const notification = (
 	message: string,
-	{ delay }: NotificationOptions,
+	{ delay }: NotificationOptions
 ) => {
 	let noticeTimeout = 0;
 
@@ -26,8 +25,6 @@ export const notification = (
 				isShow: false,
 			};
 		});
-
-		logger.log("Hide notice");
 
 		clearTimeout(noticeTimeout);
 	}, delay);

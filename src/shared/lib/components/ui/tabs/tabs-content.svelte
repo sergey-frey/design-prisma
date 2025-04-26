@@ -17,5 +17,6 @@
 		className
 	)}
 	{value}
+	aria-hidden={false}
 	{...restProps}
 />

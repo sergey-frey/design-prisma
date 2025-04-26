@@ -7,6 +7,7 @@
 	import clsx from "clsx";
 	import { format } from "prettier";
 	import htmlParser from "prettier/parser-html";
+	import type { Snippet } from "svelte";
 	import { Highlight } from "svelte-highlight";
 	import { plaintext, xml } from "svelte-highlight/languages";
 	import theme from "svelte-highlight/styles/atelier-cave-light";
@@ -15,7 +16,6 @@
 	import "../styles/index.css";
 	import CodeHighlight from "./code-highlight.svelte";
 	import CopyButton from "./copy-button.svelte";
-	import type { Snippet } from "svelte";
 
 	type Props = HTMLAttributes<HTMLDivElement> & {
 		code: NodeCSS | string;
@@ -58,7 +58,7 @@
 		<div class="relative">
 			{#if typeof code === "string"}
 				{#await highlightProps then { language, code }}
-					<CopyButton {code} class="absolute top-2 right-2" />
+					<CopyButton {code} class="absolute -top-2 right-2" />
 					<Highlight class="text-sm" {language} {code} />
 				{/await}
 			{:else}
@@ -67,7 +67,7 @@
 					$settingsStore
 				)}
 				{@const codeString = formatStyles(codeWithModifications)}
-				<CopyButton code={codeString} class="absolute top-2 right-2" />
+				<CopyButton code={codeString} class="absolute -top-3 right-2" />
 				<CodeHighlight
 					code={codeWithModifications}
 					className={clsx({ ["rounded-b-none"]: rmbNotice })}
