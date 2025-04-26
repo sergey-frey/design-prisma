@@ -9,20 +9,24 @@ import {
 	getLocalTextStyles,
 } from "./design-styles-module";
 
-export const handleGetDesignLocalTextStylesQuery = (msg: MessageToPlugin) => {
+export const handleGetDesignLocalTextStylesQuery = async (
+	msg: MessageToPlugin
+) => {
 	if (msg.action !== "get-design-local-text-styles-query") return;
 
 	postMessageToUI<GetDesignLocalTextStylesResponse>({
 		action: "get-design-local-text-styles-response",
-		textStyles: getLocalTextStyles(),
+		textStyles: await getLocalTextStyles(),
 	});
 };
 
-export const handleGetDesignLocalPaintStylesQuery = (msg: MessageToPlugin) => {
+export const handleGetDesignLocalPaintStylesQuery = async (
+	msg: MessageToPlugin
+) => {
 	if (msg.action !== "get-design-local-paint-styles-query") return;
 
 	postMessageToUI<GetDesignLocalPaintStylesResponse>({
 		action: "get-design-local-paint-styles-response",
-		paintStiles: getLocalPaintStyles(),
+		paintStiles: await getLocalPaintStyles(),
 	});
 };

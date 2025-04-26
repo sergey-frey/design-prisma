@@ -3,7 +3,7 @@ import type { NodeBlock, NodeCSS } from "../types";
 import { logger } from "./logger";
 
 export const normalizeSeparatedStyle = (
-	style: string | NodeCSS,
+	style: string | NodeCSS
 ): number[] | undefined => {
 	if (typeof style !== "string") return undefined;
 	try {
@@ -59,4 +59,18 @@ export const figmaRGBToHEX = (color: Mutable<RGB>, opacity: number): string => {
 
 export const pxToRem = (px: number, k: number): number => {
 	return Number((px / k).toFixed(3));
+};
+
+export const figmaGradientToCSS = async (
+	figmaGradient: GradientPaint
+): Promise<string> => {
+	const rect = figma.createRectangle();
+
+	rect.fills = [figmaGradient];
+
+	const bgCSS = (await rect.getCSSAsync()).background;
+
+	rect.remove();
+
+	return bgCSS;
 };

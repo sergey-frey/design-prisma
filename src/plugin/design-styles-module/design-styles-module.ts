@@ -1,9 +1,11 @@
-import { paintStyleNameToCSSVar } from "@/shared/utils";
 import type { LocalTextStyle, NodeCSS } from "@/shared/types";
+import { paintStyleNameToCSSVar } from "@/shared/utils";
 import { getPaintStyleValue } from "../code-module";
 
-export const getLocalTextStyles = (): LocalTextStyle[] => {
-	return figma.getLocalTextStyles().map((s) => ({
+export const getLocalTextStyles = async (): Promise<LocalTextStyle[]> => {
+	const textStyles = await figma.getLocalTextStylesAsync();
+
+	return textStyles.map((s) => ({
 		fontFamily: s.fontName.family,
 		fontWeight: s.fontName.style,
 		fontSize: s.fontSize,
@@ -12,13 +14,18 @@ export const getLocalTextStyles = (): LocalTextStyle[] => {
 };
 
 // TODO: add gradient and other paints
-export const getLocalPaintStyles = (): NodeCSS => {
-	return figma.getLocalPaintStyles().reduce<NodeCSS>((acc, s) => {
-		return Object.assign(acc, {
-			// [paintStyleNameToCSSVar(s.name)]: s.paints.map((p) =>
-			// 	getPaintStyleValue(p),
-			// ),
-			[paintStyleNameToCSSVar(s.name)]: getPaintStyleValue(s.paints[0]),
-		});
-	}, {});
+export const getLocalPaintStyles = async (): Promise<NodeCSS> => {
+	const paintStyles = await figma.getLocalPaintStylesAsync();
+
+	const resultObject: NodeCSS = {};
+
+	for (const paintStyle of paintStyles) {
+		const value = await getPaintStyleValue(paintStyle.paints[0]);
+
+		if (!value) continue;
+
+		resultObject[paintStyleNameToCSSVar(paintStyle.name)] = value;
+	}
+
+	return resultObject;
 };

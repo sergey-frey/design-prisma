@@ -1,5 +1,6 @@
 import { figmaRGBToHEX } from "@/shared/utils";
 import type { NodeBlock, NodeCSS } from "@/shared/types";
+import { figmaGradientToCSS } from "@/shared/utils/convert";
 
 export const getNodeCSS = async (node: SceneNode): Promise<NodeCSS> => {
 	const css = await node.getCSSAsync();
@@ -18,7 +19,6 @@ export const getNodeBlock = async (node: SceneNode): Promise<NodeBlock> => {
 		width: `${node.width.toFixed(1)}px`,
 		height: `${node.height.toFixed(1)}px`,
 		padding: nodeCSS.padding,
-		"border-radius": nodeCSS["border-radius"],
 	};
 
 	return nodeBlock;
@@ -40,10 +40,23 @@ export const getNodeText = (node: SceneNode): string => {
 	return "";
 };
 
-export const getPaintStyleValue = (paintStyle: Paint): string => {
+export const getPaintStyleValue = async (
+	paintStyle: Paint
+): Promise<string> => {
 	if (paintStyle.type === "SOLID") {
 		const opacity = paintStyle.opacity !== undefined ? paintStyle.opacity : 1;
 		return figmaRGBToHEX(paintStyle.color, opacity);
+	}
+
+	const allPossibleGradientTypes: (typeof paintStyle.type)[] = [
+		"GRADIENT_LINEAR",
+		"GRADIENT_RADIAL",
+		"GRADIENT_ANGULAR",
+		"GRADIENT_DIAMOND",
+	];
+
+	if (allPossibleGradientTypes.includes(paintStyle.type)) {
+		return await figmaGradientToCSS(paintStyle as GradientPaint);
 	}
 
 	return "";
