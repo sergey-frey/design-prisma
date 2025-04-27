@@ -46,8 +46,6 @@
 			y: clickY,
 		};
 
-		console.log(browser, newPos);
-
 		if (browser.h - newPos.y < menu.h) {
 			newPos.y = Math.max(0, newPos.y - menu.h);
 		}

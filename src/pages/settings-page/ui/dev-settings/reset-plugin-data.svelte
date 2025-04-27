@@ -12,5 +12,5 @@
 
 <div class="flex items-center justify-between">
   <p class="test-start">Reset plugin data</p>
-  <Button size="sm" on:click="{handleClick}">Reset</Button>
+  <Button size="sm" onclick="{handleClick}">Reset</Button>
 </div>

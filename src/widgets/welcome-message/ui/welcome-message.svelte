@@ -30,7 +30,7 @@
   <Alert.Root class="sticky z-50 bottom-2">
     <Alert.Title class="flex justify-between">
       Привет!
-      <button on:click="{handleCloseClick}">close</button>
+      <button onclick="{handleCloseClick}">close</button>
     </Alert.Title>
     <Alert.Description>
       Вступай в мою группу в телеграм,
