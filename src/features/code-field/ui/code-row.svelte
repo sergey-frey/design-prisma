@@ -4,7 +4,6 @@
 	import { settingsStore } from "@/entities/settings";
 	import { content } from "@/shared/content";
 	import { copyToClipboard } from "@/shared/utils";
-	import { twJoin } from "tailwind-merge";
 	import CodeRuleValue from "./code-rule-value.svelte";
 	import CodeRule from "./code-rule.svelte";
 
@@ -32,6 +31,9 @@
 	};
 
 	const handleRowOnContextmenu = (e: MouseEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+
 		$contextMenuStore.isOpen = true;
 		$contextMenuStore.x = e.clientX;
 		$contextMenuStore.y = e.clientY;
